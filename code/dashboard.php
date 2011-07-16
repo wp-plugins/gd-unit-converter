@@ -41,7 +41,5 @@ $categories = $gdr2_units->get_units();
     <input id="gduc-result" type="text" value="1" readonly />
 </div>
 <div id="gd-unit-copyright">
-     
-    Dev4Press &copy; 2008 - 2011 <a target="_blank" href="http://www.dev4press.com/">www.dev4press.com</a> | 
-    <a target="_blank" href="http://www.dev4press.com/plugin/gd-unit-converter/">GD Unit Convertor</a>
+    Dev4Press &copy; 2008 - 2011 <a target="_blank" href="http://www.dev4press.com/">www.dev4press.com</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="http://www.dev4press.com/plugin/gd-unit-converter/">GD Unit Convertor</a>&nbsp;&nbsp;|&nbsp;&nbsp;version: <strong>1.0.2</strong>
 </div>

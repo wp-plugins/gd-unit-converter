@@ -330,19 +330,24 @@ if (!class_exists("gdr2_Units")) {
         }
 
         private function currency_from_google($from, $to) {
-            $url = "http://www.google.com/search?&q=1+".$from."+in+".$to;
-            $htm = wp_remote_retrieve_body(wp_remote_get($url));
-            $reg = '/<h2 class=r(.*)\<\/h2\>/Uis';
-            $mtd = array();
-            preg_match_all($reg, $htm, $mtd, PREG_PATTERN_ORDER);
+            $url = "http://www.google.com/ig/calculator?hl=en&q=1".$from."%3D%3F".$to;
+            
+            $curl = curl_init();
+	    curl_setopt($curl, CURLOPT_URL, $url);
+	    curl_setopt($curl, CURLOPT_HEADER, 0);
+	    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	    curl_setopt($curl, CURLOPT_FAILONERROR, 1);
+	    $json = curl_exec($curl);
 
-            if (isset($mtd[0][0])) {
-                $tmp = strip_tags($mtd[0][0]);
-                $tmp = explode("=", $tmp);
-                $tmp = explode(" ", $tmp[1]);
-                return $tmp[1];
-            } else {
+            if (empty($json)) {
                 return null;
+            } else {
+                $rhs = strpos($json, "rhs");
+                if ($rhs !== false) {
+                    $rhs = substr(trim(substr($json, $rhs + 4)), 1);
+                    $rhs = explode(" ", $rhs);
+                    return $rhs[0];
+                }
             }
         }
     }

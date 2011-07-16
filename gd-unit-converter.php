@@ -1,9 +1,10 @@
 <?php
+
 /*
 Plugin Name: GD Unit Converter
 Plugin URI: http://www.dev4press.com/plugins/gd-unit-converter/
 Description: Simple and easy unit conversion directly from the admin dashboard. Supports: currency, length, speed, weight, memory, temperature...
-Version: 1.0.1
+Version: 1.0.2
 Author: Milan Petrovic
 Author URI: http://www.dev4press.com/
 
