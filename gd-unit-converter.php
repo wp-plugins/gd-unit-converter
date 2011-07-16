@@ -3,7 +3,7 @@
 Plugin Name: GD Unit Converter
 Plugin URI: http://www.dev4press.com/plugins/gd-unit-converter/
 Description: Simple and easy unit conversion directly from the admin dashboard. Supports: currency, length, speed, weight, memory, temperature...
-Version: 1.0.0
+Version: 1.0.1
 Author: Milan Petrovic
 Author URI: http://www.dev4press.com/
 
@@ -63,7 +63,11 @@ class gdUnitConverter {
         $to = $_POST["to"];
         $val = $_POST["val"];
 
-        $res = array("result" => gdr2_unit_convert("currency", $val, $from, $to));
+        $converted = gdr2_unit_convert("currency", $val, $from, $to);
+        if (is_null($converted)) {
+            $converted = "0";
+        }
+        $res = array("result" => $converted);
         die(json_encode($res));
     }
 

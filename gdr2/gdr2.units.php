@@ -37,7 +37,7 @@ if (!class_exists("gdr2_Units")) {
         public function init() {
             $this->data = array(
                 "length" => array(
-                    "name" => __("Lenght / Distance"),
+                    "name" => __("Lenght or Distance"),
                     "base" => "mm",
                     "list" => array(
                         "mm" => __("Millimeter"),
@@ -117,8 +117,8 @@ if (!class_exists("gdr2_Units")) {
                         "kn" => __("Knots")),
                     "convert" => array(
                         "kph" => 1,
-                        "mph" => 1.609344),
-                        "kn" => 1.852),
+                        "mph" => 1.609344,
+                        "kn" => 1.852)),
                 "angle" => array(
                     "name" => __("Angle"),
                     "base" => "radian",
@@ -182,7 +182,7 @@ if (!class_exists("gdr2_Units")) {
                         "CLP" => "Chilean Peso (CLP)",
                         "CNY" => "Chinese Yuan (CNY)",
                         "COP" => "Colombian Peso (COP)",
-                        "CRC" => "Costa Rican Colón (CRC)",
+                        "CRC" => "Costa Rican Colon (CRC)",
                         "CZK" => "Czech Republic Koruna (CZK)",
                         "DKK" => "Danish Krone (DKK)",
                         "DOP" => "Dominican Peso (DOP)",
@@ -220,7 +220,7 @@ if (!class_exists("gdr2_Units")) {
                         "MYR" => "Malaysian Ringgit (MYR)",
                         "NAD" => "Namibian Dollar (NAD)",
                         "NGN" => "Nigerian Naira (NGN)",
-                        "NIO" => "Nicaraguan Córdoba (NIO)",
+                        "NIO" => "Nicaraguan Cordoba (NIO)",
                         "NOK" => "Norwegian Krone (NOK)",
                         "NPR" => "Nepalese Rupee (NPR)",
                         "NZD" => "New Zealand Dollar (NZD)",
@@ -241,7 +241,7 @@ if (!class_exists("gdr2_Units")) {
                         "SGD" => "Singapore Dollar (SGD)",
                         "SKK" => "Slovak Koruna (SKK)",
                         "SLL" => "Sierra Leonean Leone (SLL)",
-                        "SVC" => "Salvadoran Colón (SVC)",
+                        "SVC" => "Salvadoran Colon (SVC)",
                         "THB" => "Thai Baht (THB)",
                         "TND" => "Tunisian Dinar (TND)",
                         "TRY" => "Turkish Lira (TRY)",
@@ -253,7 +253,7 @@ if (!class_exists("gdr2_Units")) {
                         "USD" => "US Dollar (USD)",
                         "UYU" => "Uruguayan Peso (UYU)",
                         "UZS" => "Uzbekistan Som (UZS)",
-                        "VEF" => "Venezuelan Bolívar (VEF)",
+                        "VEF" => "Venezuelan Bolivar (VEF)",
                         "VND" => "Vietnamese Dong (VND)",
                         "XOF" => "CFA Franc BCEAO (XOF)",
                         "YER" => "Yemeni Rial (YER)",
@@ -307,10 +307,6 @@ if (!class_exists("gdr2_Units")) {
             echo $value_base * $ratio_to["ratio"] + $ratio_to["offset"];
         }
 
-        private function temperature_to_base($x) {
-
-        }
-
         private function conv_currency($value, $from, $to) {
             if (!is_numeric($value)) return null;
             $value = trim($value);
@@ -323,9 +319,9 @@ if (!class_exists("gdr2_Units")) {
 
             $key = "currency_rate_".$crr[0]."-".$crr[1];
             $rate = gdr2c_get_network($key);
-            if ($rate === false) {
+            if ($rate === false || is_null($rate) || empty($rate)) {
                 $rate = $this->currency_from_google($crr[0], $crr[1]);
-                if (is_null($rate)) return $null;
+                if (is_null($rate) || empty($rate)) return null;
                 gdr2c_set_network($key, $rate, 86400);
             }
 
