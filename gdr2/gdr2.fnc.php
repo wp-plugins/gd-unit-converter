@@ -590,6 +590,15 @@ if (!function_exists("gdr2_null")) {
     }
 }
 
+if (!function_exists("gdr2_is_oembed_link")) {
+    function gdr2_is_oembed_link($url) {
+        require_once(ABSPATH.WPINC.'/class-oembed.php');
+        $oembed = _wp_oembed_get_object();
+        $result = $oembed->get_html($url);
+        return $result === false ? false : true;
+    }
+}
+
 if (!function_exists("php_array_to_js_object")) {
     function php_array_to_js_object($array){
         $obj = array();

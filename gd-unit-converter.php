@@ -4,7 +4,7 @@
 Plugin Name: GD Unit Converter
 Plugin URI: http://www.dev4press.com/plugins/gd-unit-converter/
 Description: Simple and easy unit conversion directly from the admin dashboard. Supports: currency, length, speed, weight, memory, temperature...
-Version: 1.0.2
+Version: 1.0.3
 Author: Milan Petrovic
 Author URI: http://www.dev4press.com/
 
@@ -26,8 +26,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+define("GDUNITCONVERTER_VERSION", "1.0.3");
+
 require_once(dirname(__FILE__)."/gdr2/gdr2.core.php");
 require_once(dirname(__FILE__)."/gdr2/gdr2.units.php");
+//require_once(dirname(__FILE__)."/gdr2/gdr2.widget.php");
 
 if (!function_exists("json_decode")) {
     require_once(dirname(__FILE__)."/code/json.php");
@@ -74,11 +77,13 @@ class gdUnitConverter {
 
     public function admin_init() {
         if ($this->script == "index.php") {
+            $js_url = defined("SCRIPT_DEBUG") && SCRIPT_DEBUG ? "js/src/unit-converter.js" : "js/unit-converter.js";
+
             wp_enqueue_style("gd-unit-converter", GDUNITCONVERTER_URL."css/unit-converter.css");
-            wp_enqueue_script("gd-unit-converter", GDUNITCONVERTER_URL."js/unit-converter.js", array("jquery"));
+            wp_enqueue_script("gd-unit-converter", GDUNITCONVERTER_URL.$js_url, array("jquery"));
         }
     }
-    
+
     public function dashboard_setup() {
         wp_add_dashboard_widget("dashboard_gd_unit_converter", "GD Unit Converter", array(&$this, "dashboard_widget"));
     }
