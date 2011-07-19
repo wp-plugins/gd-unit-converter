@@ -1,7 +1,7 @@
 === GD Unit Converter ===
 Contributors: gdragon
 Donate link: http://www.dev4press.com/
-Version: 1.0.3
+Version: 1.0.4
 Tags: dashboard, dashboard widget, dev4press, unit, units, converter, convert, unit converter, gdragon, currency
 Requires at least: 3.0
 Tested up to: 3.2
@@ -16,10 +16,13 @@ GD Unit Converter is easy to use admin side dashboard widget that allows fast co
 * Length
 * Speed
 * Weight
-* Computer Memory,
+* Computer Memory
 * Temperature
 * Angle
 * Time
+* Brightness
+* Power
+* Electrical Charge
 
 Supported categories and units in each category will be expanded with future plugin versions.
 
@@ -45,10 +48,17 @@ Plugin supports all currencies Google supports. Right now that list has 93 curre
 1. Dashboard widget in WordPress 3.2
 
 == Upgrade Notice ==
-= 1.0.3 =
-Please wait message for currency conversion. Compressed and sourced JavaScript code for debug. Fixed initial display of currency conversion.
+= 1.0.4 =
+Brightness conversions. Power conversions. Electrical Charge conversions. Widget added to Network Dashboard. Additional units to other conversions.
 
 == Changelog ==
+= 1.0.4 =
+* Brightness conversions
+* Power conversions
+* Electrical Charge conversions
+* Widget added to Network Dashboard
+* Additional units to other conversions
+
 = 1.0.3 =
 * Please wait message for currency conversion
 * Compressed and sourced JavaScript code for debug
