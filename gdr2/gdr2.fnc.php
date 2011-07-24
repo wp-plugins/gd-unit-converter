@@ -579,6 +579,36 @@ if(!function_exists('gdr2_mime_content_type')) {
     }
 }
 
+if (!function_exists("gdr2_sanitize_simple")) {
+    /**
+     * Sanitize string with only some simple replacements.
+     *
+     * @param string $name input string
+     * @return string sanitized name
+     */
+    function gdr2_sanitize_simple($name) {
+        $name = trim(strip_tags($name));
+        $name = str_replace(array(".", " "), "-", $name);
+        return $name;
+    }
+}
+
+if (!function_exists("gdr2_sanitize_full")) {
+    /**
+     * Sanitize string with full series of transformations.
+     *
+     * @param string $name input string
+     * @return string sanitized name
+     */
+    function gdr2_sanitize_full($name) {
+        $name = trim(strip_tags($name));
+        $name = strtolower($name);
+        $name = sanitize_user($name, true);
+        $name = str_replace(array(".", " "), "-", $name);
+        return $name;
+    }
+}
+
 if (!function_exists("gdr2_null")) {
     /**
      * Null function. Returns null. Does nothing.

@@ -84,6 +84,39 @@ if (!class_exists("gdr2_Units")) {
                         "mL" => 0.0001,
                         "mLa" => 0.000318309886184
                     )),
+                "frequency" => array(
+                    "name" => __("Frequency"),
+                    "base" => "Hz",
+                    "list" => array(
+                        "Hz" => __("Hertz"),
+                        "kHz" => __("Kilohertz"),
+                        "MHz" => __("Megahertz"),
+                        "GHz" => __("Gigahertz"),
+                        "THz" => __("Terahertz"),
+                        "mHz" => __("Millihertz"),
+                        "rad/hr" => __("Radian / Hour"),
+                        "rad/min" => __("Radian / Minute"),
+                        "rad/s" => __("Radian / Second"),
+                        "deg/hr" => __("Degree / Hour"),
+                        "deg/min" => __("Degree / Minute"),
+                        "deg/s" => __("Degree / Second"),
+                        "cps" => __("Cycle / Second")
+                    ),
+                    "convert" => array(
+                        "Hz" => 1,
+                        "kHz" => 1000,
+                        "MHz" => 1000000,
+                        "GHz" => 1000000000,
+                        "THz" => 1000000000000,
+                        "mHz" => 0.001,
+                        "rad/hr" => 0.000044209706414415,
+                        "rad/min" => 0.002652582384865,
+                        "rad/s" => 0.159154943091895,
+                        "deg/hr" => 0.000000771604938272,
+                        "deg/min" => 0.000046296296296296,
+                        "deg/s" => 0.002777777777778,
+                        "cps" => 1,
+                    )),
                 "power" => array(
                     "name" => __("Power"),
                     "base" => "W",
@@ -128,10 +161,12 @@ if (!class_exists("gdr2_Units")) {
                         "GB" => __("Gigabyte"),
                         "TB" => __("Terabyte"),
                         "PB" => __("Petabyte"),
-                        "1CD74" => __("1 CD 74min"),
-                        "1CD80" => __("1 CD 80min"),
-                        "1DVD" => __("1 DVD Dual Layer"),
-                        "1DVDDL" => __("1 DVD")
+                        "CD74" => __("1 CD 74min"),
+                        "CD80" => __("1 CD 80min"),
+                        "DVD" => __("1 DVD"),
+                        "DVDDL" => __("1 DVD Dual Layer"),
+                        "BD" => __("1 BD"),
+                        "BDDL" => __("1 BD Dual Layer")
                     ),
                     "convert" => array(
                         "bit" => 0.125,
@@ -141,10 +176,12 @@ if (!class_exists("gdr2_Units")) {
                         "GB" => 1073741824,
                         "TB" => 1099511627800,
                         "PB" => 1125899906800000,
-                        "1CD74" => 5448466432,
-                        "1CD80" => 5890233976,
-                        "1DVD" => 394264576000,
-                        "1DVDDL" => 713031680000
+                        "CD74" => 681058304,
+                        "CD80" => 736279247,
+                        "DVD" => 5046586572.8,
+                        "DVDDL" => 9126805504,
+                        "BD" => 26843545600,
+                        "BDDL" => 53687091200
                     )),
                 "temperature" => array(
                     "name" => __("Temperature"),
@@ -181,6 +218,23 @@ if (!class_exists("gdr2_Units")) {
                         "oz" => 28349.5231,
                         "lb" => 453592.37,
                         "carat" => 205.196548333
+                    )),
+                "electric_current" => array(
+                    "name" => __("Electric Current"),
+                    "base" => "A",
+                    "list" => array(
+                        "A" => __("Ampere"),
+                        "mA" => __("Milliampere"),
+                        "abamp" => __("Abamper"),
+                        "MA" => __("Megampere"),
+                        "esu/s" => __("Statampere")
+                    ),
+                    "convert" => array(
+                        "A" => 1,
+                        "mA" => 0.001,
+                        "abamp" => 10,
+                        "MA" => 0.000333564095198,
+                        "esu/s" => 3.33564095198152e-010
                     )),
                 "electrical_charge" => array(
                     "name" => __("Electrical Charge"),
