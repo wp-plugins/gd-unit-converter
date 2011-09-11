@@ -2,7 +2,7 @@
 
 /*
 Name:    gdr2_Log
-Version: 2.4.0
+Version: 2.4.4
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/

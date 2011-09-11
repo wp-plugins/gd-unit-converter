@@ -2,7 +2,7 @@
 
 /*
 Name:    gdr2_Units
-Version: 2.4.0
+Version: 2.4.4
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
@@ -218,6 +218,101 @@ if (!class_exists("gdr2_Units")) {
                         "oz" => 28349.5231,
                         "lb" => 453592.37,
                         "carat" => 205.196548333
+                    )),
+                "fuel_consumption" => array(
+                    "name" => __("Fuel Consumption"),
+                    "base" => "L/km",
+                    "list" => array(
+                        "L/km" => __("Liter/100 Kilometer"),
+                        "L/mile" => __("Liter/100 Mile"),
+                        "km/L" => __("Kilometer/Liter"),
+                        "mile/L" => __("Mile/Liter"),
+                        "km/gallon/uk" => __("Kilometer/Gallon - UK"),
+                        "km/gallon/us" => __("Kilometer/Gallon - US"),
+                        "mile/gallon/uk" => __("Mile/Gallon - UK"),
+                        "mile/gallon/us" => __("Mile/Gallon - US"),
+                        "gallon/km/uk" => __("Gallon/100 Kilometer - UK"),
+                        "gallon/km/us" => __("Gallon/100 Kilometer - US"),
+                        "gallon/mile/uk" => __("Gallon/100 Mile - UK"),
+                        "gallon/mile/us" => __("Gallon/100 Mile - US")
+                    ),
+                    "convert" => array(
+                        "L/km" => 1,
+                        "L/mile" => 0.621371192237334,
+                        "km/L" => 100,
+                        "mile/L" => 62.1371192237334,
+                        "km/gallon/uk" => 454.609,
+                        "km/gallon/us" => 378.5411784,
+                        "mile/gallon/uk" => 282.480936331822,
+                        "mile/gallon/us" => 235.214583333333,
+                        "gallon/km/uk" => 4.54609,
+                        "gallon/km/us" => 3.785411784,
+                        "gallon/mile/uk" => 2.82480936331822,
+                        "gallon/mile/us" => 2.35214583333333
+                    )),
+                "area" => array(
+                    "name" => __("Area"),
+                    "base" => "m2",
+                    "list" => array(
+                        "m2" => __("Square Meter"),
+                        "km2" => __("Square Kilometer"),
+                        "cm2" => __("Square Centimeter"),
+                        "mm2" => __("Square Milliimeter"),
+                        "in2" => __("Square Inch"),
+                        "mi2" => __("Square Mile"),
+                        "ft2" => __("Square Foot"),
+                        "yd2" => __("Square Yard"),
+                        "a" => __("Are"),
+                        "ha" => __("Hectare"),
+                        "acre" => __("Acre")
+                    ),
+                    "convert" => array(
+                        "m2" => 1,
+                        "km2" => 1000000,
+                        "cm2" => 0.0001,
+                        "mm2" => 0.0000001,
+                        "in2" => 0.00064516,
+                        "mi2" => 2589988.110336,
+                        "ft2" => 0.09290304,
+                        "yd2" => 0.83612736,
+                        "a" => 100,
+                        "ha" => 10000,
+                        "acre" => 4046.8564224
+                    )),
+                "energy" => array(
+                    "name" => __("Energy"),
+                    "base" => "Wh",
+                    "list" => array(
+                        "Wh" => __("Watt Hour"),
+                        "Ws" => __("Watt Second"),
+                        "mWh" => __("Milliwatt Hour"),
+                        "kWh" => __("Kilowatt Hour"),
+                        "MWh" => __("Kilowatt Hour"),
+                        "GWh" => __("Gigawatt Hour"),
+                        "cal" => __("Calorie"),
+                        "kcal" => __("Kilocalorie"),
+                        "J" => __("Joule"),
+                        "kJ" => __("Kilojoule"),
+                        "MJ" => __("Megajoule"),
+                        "GJ" => __("Gigajoule"),
+                        "uJ" => __("Microjoule"),
+                        "mJ" => __("Millijoule")
+                    ),
+                    "convert" => array(
+                        "Wh" => 1,
+                        "Ws" => 0.000277777777778,
+                        "mWh" => 0.001,
+                        "kWh" => 1000,
+                        "MWh" => 1000000,
+                        "GWh" => 1000000000,
+                        "cal" => 0.001163,
+                        "kcal" => 1.163,
+                        "J" => 0.000277777777778,
+                        "kJ" => 0.277777777777778,
+                        "MJ" => 277.777777777778,
+                        "GJ" => 277777.777777778,
+                        "uJ" => 0.000000000277777777778,
+                        "mJ" => 0.000000277777777778
                     )),
                 "electric_current" => array(
                     "name" => __("Electric Current"),

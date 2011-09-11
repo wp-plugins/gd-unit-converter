@@ -2,7 +2,7 @@
 
 /*
 Name:    gdr2_Fnc
-Version: 2.4.0
+Version: 2.4.4
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
@@ -128,6 +128,18 @@ if (!function_exists("is_msie_version")) {
             }
         }
         return false;
+    }
+}
+
+if (!function_exists("is_windows")) {
+    /**
+     * Determines if the server OS is Windows.
+     *
+     * @return bool true if the server is Windows
+     */
+    function is_windows() {
+        $os = strtolower(php_uname("s"));
+        return strpos($os, "windows") !== false;
     }
 }
 
@@ -353,14 +365,38 @@ if (!function_exists("gdr2_entity_decode")) {
     }
 }
 
+if (!function_exists("gdr2_local_to_server_timestamp")) {
+    /**
+     * Return server timestamp based on the time zone setting from local timestamp.
+     *
+     * @return int server timestamp
+     */
+    function gdr2_local_to_server_timestamp($local) {
+        $server = $local - get_option("gmt_offset") * 3600;
+        return $server;
+    }
+}
+
+if (!function_exists("gdr2_server_to_local_timestamp")) {
+    /**
+     * Return local timestamp based on the time zone setting from server timestamp.
+     *
+     * @return int local timestamp
+     */
+    function gdr2_server_to_local_timestamp($server) {
+        $local = $server + get_option("gmt_offset") * 3600;
+        return $local;
+    }
+}
+
 if (!function_exists("gdr2_current_timestamp")) {
     /**
      * Return current timestamp based on the time zone setting.
      *
      * @return int current timestamp
      */
-    function gdr2_current_timestamp() {
-        $blogtime = current_time('mysql');
+    function gdr2_current_timestamp($gmt = false) {
+        $blogtime = current_time('mysql', $gmt);
         list($year, $month, $day, $hour, $minute, $second) = split('([^0-9])', $blogtime);
         return mktime($hour, $minute, $second, $month, $day, $year);
     }
@@ -604,6 +640,7 @@ if (!function_exists("gdr2_sanitize_full")) {
         $name = trim(strip_tags($name));
         $name = strtolower($name);
         $name = sanitize_user($name, true);
+        $name = str_replace(array("'", '"'), "", $name);
         $name = str_replace(array(".", " "), "-", $name);
         return $name;
     }
@@ -620,7 +657,25 @@ if (!function_exists("gdr2_null")) {
     }
 }
 
+if (!function_exists("gdr2_is_array_associative")) {
+    /**
+     * Check if the array is associative.
+     *
+     * @param mixed $array array to check
+     * @return boolean true if the array is associative, false if it is not.
+     */
+    function gdr2_is_array_associative($array) {
+        return is_array($array) && (0 !== count(array_diff_key($array, array_keys(array_keys($array)))) || count($array) == 0);
+    }
+}
+
 if (!function_exists("gdr2_is_oembed_link")) {
+    /**
+     * Check if the link is valid oEmbed link.
+     *
+     * @param string $url link to check
+     * @return boolean true if the link is valid oEmbed link, false if it is not.
+     */
     function gdr2_is_oembed_link($url) {
         require_once(ABSPATH.WPINC.'/class-oembed.php');
         $oembed = _wp_oembed_get_object();
@@ -675,6 +730,23 @@ if (!function_exists("sprintfa")) {
 if (!function_exists("printfa")) {
     function printfa($format, $args){
         return call_user_func_array('printf', array_merge((array)$format, $args));
+    }
+}
+
+if (!function_exists("gdr2_print_array_lines")) {
+    function gdr2_print_array_lines($array, $none = "<em>none</em>") {
+        if (is_array($array)) {
+            foreach($array as $key => $item) {
+                if (is_array($item)) {
+                    $array[$key] = gdr2_print_array_lines($item, $none);
+                }
+            }
+            return join("<br/>", $array).'<br/>';
+        } else if (empty($array)) {
+            return $none.'<br/>';
+        } else {
+            return $array.'<br/>';
+        }
     }
 }
 

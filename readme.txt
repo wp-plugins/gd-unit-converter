@@ -1,10 +1,10 @@
 === GD Unit Converter ===
 Contributors: gdragon
 Donate link: http://www.dev4press.com/
-Version: 1.0.5
+Version: 1.0.6
 Tags: dashboard, dashboard widget, dev4press, unit, units, converter, convert, unit converter, gdragon, currency
 Requires at least: 3.0
-Tested up to: 3.2
+Tested up to: 3.3
 Stable tag: trunk
 
 Simple and easy unit conversion directly from the admin dashboard. Supports: currency, length, speed, weight, memory, temperature...
@@ -25,6 +25,9 @@ GD Unit Converter is easy to use admin side dashboard widget that allows fast co
 * Electrical Charge
 * Electric Current
 * Frequency
+* Area
+* Fuel Consumption
+* Energy
 
 Supported categories and units in each category will be expanded with future plugin versions.
 
@@ -50,10 +53,15 @@ Plugin supports all currencies Google supports. Right now that list has 93 curre
 1. Dashboard widget in WordPress 3.2
 
 == Upgrade Notice ==
-= 1.0.5 =
-Electric Current conversions. Frequency conversions. Fixed some of computer memory conversions.
+= 1.0.6 =
+Fuel Consumption conversions. Area conversions. Energy conversions.
 
 == Changelog ==
+= 1.0.6 =
+* Fuel Consumption conversions
+* Area conversions
+* Energy conversions
+
 = 1.0.5 =
 * Electric Current conversions
 * Frequency conversions

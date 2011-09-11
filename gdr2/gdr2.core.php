@@ -2,7 +2,7 @@
 
 /*
 Name:    gdr2_Core
-Version: 2.4.0
+Version: 2.4.4
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
@@ -553,8 +553,10 @@ if (!class_exists("gdrClass")) {
      */
     class gdrClass {
         function __construct($args = array()) {
-            foreach ($args as $key => $value) {
-                $this->$key = $value;
+            if (is_array($args) && !empty($args)) {
+                foreach ($args as $key => $value) {
+                    $this->$key = $value;
+                }
             }
         }
 
@@ -581,6 +583,57 @@ if (!class_exists("gdrBase")) {
                     $this->{$key} = unserialize(serialize($val));
                 }
             }
+        }
+    }
+}
+
+
+if (!class_exists("gdrMenuIcons")) {
+    /**
+     * Empty base class with some extra functionalities.
+     */
+    abstract class gdrMenuIcons {
+        public $icons = array();
+        public $url_blank = "";
+        public $url_types = "";
+
+        function __construct() {
+            $this->init_links();
+            $this->init_icons();
+        }
+
+        abstract function init_links();
+        abstract function init_icons();
+
+        public function get_img($name) {
+            $x = $this->get_location($name) - 7;
+
+            $img = '<img src="'.$this->url_blank.'" width="16" height="16"';
+            $img.= ' style="background: url('.$this->url_types.') no-repeat scroll ';
+            $img.= $x.'px -8px transparent !important; }" />';
+            return $img;
+        }
+
+        public function get_css($name, $post_type) {
+            $x = $this->get_location($name);
+
+            $css = "#menu-posts-".$post_type." .wp-menu-image {";
+            $css.= "background: url(".$this->url_types.") no-repeat scroll ";
+            $css.= $x."px -33px transparent !important; }".GDR2_EOL;
+            $css.= "#menu-posts-".$post_type.":hover .wp-menu-image {";
+            $css.= "background: url(".$this->url_types.") no-repeat scroll ";
+            $css.= $x."px -1px transparent !important; }".GDR2_EOL;
+
+            return $css;
+        }
+
+        public function get_location($name) {
+            if (gdr2_is_array_associative($this->icons)) {
+                $id = array_search($name, array_keys($this->icons));
+            } else {
+                $id = array_search($name, $this->icons);
+            }
+            return -$id * 30;
         }
     }
 }
