@@ -1,0 +1,679 @@
+#: gdr2.settings.php:170
+msgid "has errors"
+msgstr ""
+
+#: gdr2.settings.php:275
+msgid "Click to open currently selected image."
+msgstr ""
+
+#: gdr2.settings.php:276
+msgid "Click to open Media library dialog."
+msgstr ""
+
+#: gdr2.settings.php:393
+msgid "(all)"
+msgstr ""
+
+#: gdr2.units.php:39
+msgid "Lenght or Distance"
+msgstr ""
+
+#: gdr2.units.php:42
+msgid "Millimeter"
+msgstr ""
+
+#: gdr2.units.php:43
+msgid "Centimeter"
+msgstr ""
+
+#: gdr2.units.php:44
+msgid "Decimeter"
+msgstr ""
+
+#: gdr2.units.php:45
+msgid "Meter"
+msgstr ""
+
+#: gdr2.units.php:46
+msgid "Kilometer"
+msgstr ""
+
+#: gdr2.units.php:47
+msgid "Inch"
+msgstr ""
+
+#: gdr2.units.php:48
+msgid "Feet"
+msgstr ""
+
+#: gdr2.units.php:49
+msgid "Yard"
+msgstr ""
+
+#: gdr2.units.php:62
+msgid "Brightness"
+msgstr ""
+
+#: gdr2.units.php:65
+msgid "Stilb"
+msgstr ""
+
+#: gdr2.units.php:66
+msgid "Candela / square centimeter"
+msgstr ""
+
+#: gdr2.units.php:67
+msgid "Candela / square meter"
+msgstr ""
+
+#: gdr2.units.php:68
+msgid "Candela / square inch"
+msgstr ""
+
+#: gdr2.units.php:69
+msgid "Candela / square foot"
+msgstr ""
+
+#: gdr2.units.php:70
+msgid "Lambert"
+msgstr ""
+
+#: gdr2.units.php:71
+msgid "FootLambert"
+msgstr ""
+
+#: gdr2.units.php:72
+msgid "MeterLambert"
+msgstr ""
+
+#: gdr2.units.php:73
+msgid "MilliLambert"
+msgstr ""
+
+#: gdr2.units.php:87
+msgid "Frequency"
+msgstr ""
+
+#: gdr2.units.php:90
+msgid "Hertz"
+msgstr ""
+
+#: gdr2.units.php:91
+msgid "Kilohertz"
+msgstr ""
+
+#: gdr2.units.php:92
+msgid "Megahertz"
+msgstr ""
+
+#: gdr2.units.php:93
+msgid "Gigahertz"
+msgstr ""
+
+#: gdr2.units.php:94
+msgid "Terahertz"
+msgstr ""
+
+#: gdr2.units.php:95
+msgid "Millihertz"
+msgstr ""
+
+#: gdr2.units.php:96
+msgid "Radian / Hour"
+msgstr ""
+
+#: gdr2.units.php:97
+msgid "Radian / Minute"
+msgstr ""
+
+#: gdr2.units.php:98
+msgid "Radian / Second"
+msgstr ""
+
+#: gdr2.units.php:99
+msgid "Degree / Hour"
+msgstr ""
+
+#: gdr2.units.php:100
+msgid "Degree / Minute"
+msgstr ""
+
+#: gdr2.units.php:101
+msgid "Degree / Second"
+msgstr ""
+
+#: gdr2.units.php:102
+msgid "Cycle / Second"
+msgstr ""
+
+#: gdr2.units.php:120
+msgid "Power"
+msgstr ""
+
+#: gdr2.units.php:123
+msgid "Watt"
+msgstr ""
+
+#: gdr2.units.php:124
+msgid "Kilowatt"
+msgstr ""
+
+#: gdr2.units.php:125
+msgid "Megawatt"
+msgstr ""
+
+#: gdr2.units.php:126
+msgid "Gigawatt"
+msgstr ""
+
+#: gdr2.units.php:127
+msgid "Horsepower"
+msgstr ""
+
+#: gdr2.units.php:128
+msgid "Horsepower metric"
+msgstr ""
+
+#: gdr2.units.php:129
+msgid "Millihorsepower"
+msgstr ""
+
+#: gdr2.units.php:130
+msgid "Calorie / hour"
+msgstr ""
+
+#: gdr2.units.php:131
+msgid "Calorie / minute"
+msgstr ""
+
+#: gdr2.units.php:132
+msgid "Calorie / second"
+msgstr ""
+
+#: gdr2.units.php:133
+msgid "Joule / hour"
+msgstr ""
+
+#: gdr2.units.php:134
+msgid "Joule / minute"
+msgstr ""
+
+#: gdr2.units.php:135
+msgid "Joule / second"
+msgstr ""
+
+#: gdr2.units.php:153
+msgid "Memory"
+msgstr ""
+
+#: gdr2.units.php:156
+msgid "Bit"
+msgstr ""
+
+#: gdr2.units.php:157
+msgid "Byte"
+msgstr ""
+
+#: gdr2.units.php:158
+msgid "Kilobyte"
+msgstr ""
+
+#: gdr2.units.php:159
+msgid "Megabyte"
+msgstr ""
+
+#: gdr2.units.php:160
+msgid "Gigabyte"
+msgstr ""
+
+#: gdr2.units.php:161
+msgid "Terabyte"
+msgstr ""
+
+#: gdr2.units.php:162
+msgid "Petabyte"
+msgstr ""
+
+#: gdr2.units.php:163
+msgid "1 CD 74min"
+msgstr ""
+
+#: gdr2.units.php:164
+msgid "1 CD 80min"
+msgstr ""
+
+#: gdr2.units.php:165
+msgid "1 DVD"
+msgstr ""
+
+#: gdr2.units.php:166
+msgid "1 DVD Dual Layer"
+msgstr ""
+
+#: gdr2.units.php:167
+msgid "1 BD"
+msgstr ""
+
+#: gdr2.units.php:168
+msgid "1 BD Dual Layer"
+msgstr ""
+
+#: gdr2.units.php:186
+msgid "Temperature"
+msgstr ""
+
+#: gdr2.units.php:189
+msgid "Celsius"
+msgstr ""
+
+#: gdr2.units.php:190
+msgid "Fahrenheit"
+msgstr ""
+
+#: gdr2.units.php:191
+msgid "Kelvin"
+msgstr ""
+
+#: gdr2.units.php:192
+msgid "Reaumur"
+msgstr ""
+
+#: gdr2.units.php:201
+msgid "Weight / Mass"
+msgstr ""
+
+#: gdr2.units.php:204
+msgid "Milligram"
+msgstr ""
+
+#: gdr2.units.php:205
+msgid "Gram"
+msgstr ""
+
+#: gdr2.units.php:206
+msgid "Kilogram"
+msgstr ""
+
+#: gdr2.units.php:207
+msgid "Tonne"
+msgstr ""
+
+#: gdr2.units.php:208
+msgid "Ounce"
+msgstr ""
+
+#: gdr2.units.php:209
+msgid "Pound"
+msgstr ""
+
+#: gdr2.units.php:210
+msgid "Carat"
+msgstr ""
+
+#: gdr2.units.php:222
+msgid "Fuel Consumption"
+msgstr ""
+
+#: gdr2.units.php:225
+msgid "Liter/100 Kilometer"
+msgstr ""
+
+#: gdr2.units.php:226
+msgid "Liter/100 Mile"
+msgstr ""
+
+#: gdr2.units.php:227
+msgid "Kilometer/Liter"
+msgstr ""
+
+#: gdr2.units.php:228
+msgid "Mile/Liter"
+msgstr ""
+
+#: gdr2.units.php:229
+msgid "Kilometer/Gallon - UK"
+msgstr ""
+
+#: gdr2.units.php:230
+msgid "Kilometer/Gallon - US"
+msgstr ""
+
+#: gdr2.units.php:231
+msgid "Mile/Gallon - UK"
+msgstr ""
+
+#: gdr2.units.php:232
+msgid "Mile/Gallon - US"
+msgstr ""
+
+#: gdr2.units.php:233
+msgid "Gallon/100 Kilometer - UK"
+msgstr ""
+
+#: gdr2.units.php:234
+msgid "Gallon/100 Kilometer - US"
+msgstr ""
+
+#: gdr2.units.php:235
+msgid "Gallon/100 Mile - UK"
+msgstr ""
+
+#: gdr2.units.php:236
+msgid "Gallon/100 Mile - US"
+msgstr ""
+
+#: gdr2.units.php:253
+msgid "Area"
+msgstr ""
+
+#: gdr2.units.php:256
+msgid "Square Meter"
+msgstr ""
+
+#: gdr2.units.php:257
+msgid "Square Kilometer"
+msgstr ""
+
+#: gdr2.units.php:258
+msgid "Square Centimeter"
+msgstr ""
+
+#: gdr2.units.php:259
+msgid "Square Milliimeter"
+msgstr ""
+
+#: gdr2.units.php:260
+msgid "Square Inch"
+msgstr ""
+
+#: gdr2.units.php:261
+msgid "Square Mile"
+msgstr ""
+
+#: gdr2.units.php:262
+msgid "Square Foot"
+msgstr ""
+
+#: gdr2.units.php:263
+msgid "Square Yard"
+msgstr ""
+
+#: gdr2.units.php:264
+msgid "Are"
+msgstr ""
+
+#: gdr2.units.php:265
+msgid "Hectare"
+msgstr ""
+
+#: gdr2.units.php:266
+msgid "Acre"
+msgstr ""
+
+#: gdr2.units.php:282
+msgid "Energy"
+msgstr ""
+
+#: gdr2.units.php:285
+msgid "Watt Hour"
+msgstr ""
+
+#: gdr2.units.php:286
+msgid "Watt Second"
+msgstr ""
+
+#: gdr2.units.php:287
+msgid "Milliwatt Hour"
+msgstr ""
+
+#: gdr2.units.php:288
+#: gdr2.units.php:289
+msgid "Kilowatt Hour"
+msgstr ""
+
+#: gdr2.units.php:290
+msgid "Gigawatt Hour"
+msgstr ""
+
+#: gdr2.units.php:291
+msgid "Calorie"
+msgstr ""
+
+#: gdr2.units.php:292
+msgid "Kilocalorie"
+msgstr ""
+
+#: gdr2.units.php:293
+msgid "Joule"
+msgstr ""
+
+#: gdr2.units.php:294
+msgid "Kilojoule"
+msgstr ""
+
+#: gdr2.units.php:295
+msgid "Megajoule"
+msgstr ""
+
+#: gdr2.units.php:296
+msgid "Gigajoule"
+msgstr ""
+
+#: gdr2.units.php:297
+msgid "Microjoule"
+msgstr ""
+
+#: gdr2.units.php:298
+msgid "Millijoule"
+msgstr ""
+
+#: gdr2.units.php:317
+msgid "Electric Current"
+msgstr ""
+
+#: gdr2.units.php:320
+msgid "Ampere"
+msgstr ""
+
+#: gdr2.units.php:321
+msgid "Milliampere"
+msgstr ""
+
+#: gdr2.units.php:322
+msgid "Abamper"
+msgstr ""
+
+#: gdr2.units.php:323
+msgid "Megampere"
+msgstr ""
+
+#: gdr2.units.php:324
+msgid "Statampere"
+msgstr ""
+
+#: gdr2.units.php:334
+msgid "Electrical Charge"
+msgstr ""
+
+#: gdr2.units.php:337
+msgid "Coulomb"
+msgstr ""
+
+#: gdr2.units.php:338
+msgid "Nanocoulomb"
+msgstr ""
+
+#: gdr2.units.php:339
+msgid "Microcoulomb"
+msgstr ""
+
+#: gdr2.units.php:340
+msgid "Millicoulomb"
+msgstr ""
+
+#: gdr2.units.php:341
+msgid "Kilocoulomb"
+msgstr ""
+
+#: gdr2.units.php:342
+msgid "Megacoulomb"
+msgstr ""
+
+#: gdr2.units.php:343
+msgid "Gigacoulomb"
+msgstr ""
+
+#: gdr2.units.php:344
+msgid "Abcoulomb"
+msgstr ""
+
+#: gdr2.units.php:345
+msgid "Electromagnetic unit of charge"
+msgstr ""
+
+#: gdr2.units.php:346
+msgid "Electrostatic unit of chargee"
+msgstr ""
+
+#: gdr2.units.php:347
+msgid "Faraday"
+msgstr ""
+
+#: gdr2.units.php:348
+msgid "Franklin"
+msgstr ""
+
+#: gdr2.units.php:349
+msgid "Ampere Hour"
+msgstr ""
+
+#: gdr2.units.php:350
+msgid "Ampere Minute"
+msgstr ""
+
+#: gdr2.units.php:351
+msgid "Ampere Second"
+msgstr ""
+
+#: gdr2.units.php:352
+msgid "Milliampere Hour"
+msgstr ""
+
+#: gdr2.units.php:353
+msgid "Milliampere Minute"
+msgstr ""
+
+#: gdr2.units.php:354
+msgid "Milliampere Second"
+msgstr ""
+
+#: gdr2.units.php:377
+msgid "Speed"
+msgstr ""
+
+#: gdr2.units.php:380
+msgid "Meters per second"
+msgstr ""
+
+#: gdr2.units.php:381
+msgid "Kilometers per hour"
+msgstr ""
+
+#: gdr2.units.php:382
+msgid "Miles per hour"
+msgstr ""
+
+#: gdr2.units.php:383
+msgid "Knots"
+msgstr ""
+
+#: gdr2.units.php:392
+msgid "Angle"
+msgstr ""
+
+#: gdr2.units.php:395
+msgid "Radian"
+msgstr ""
+
+#: gdr2.units.php:396
+msgid "Grad"
+msgstr ""
+
+#: gdr2.units.php:397
+msgid "Degree"
+msgstr ""
+
+#: gdr2.units.php:398
+#: gdr2.units.php:418
+msgid "Minute"
+msgstr ""
+
+#: gdr2.units.php:399
+#: gdr2.units.php:417
+msgid "Second"
+msgstr ""
+
+#: gdr2.units.php:400
+msgid "Revolution"
+msgstr ""
+
+#: gdr2.units.php:411
+msgid "Time"
+msgstr ""
+
+#: gdr2.units.php:414
+msgid "Nanosecond"
+msgstr ""
+
+#: gdr2.units.php:415
+msgid "Microsecond"
+msgstr ""
+
+#: gdr2.units.php:416
+msgid "Millisecond"
+msgstr ""
+
+#: gdr2.units.php:419
+msgid "Hour"
+msgstr ""
+
+#: gdr2.units.php:420
+msgid "Day"
+msgstr ""
+
+#: gdr2.units.php:421
+msgid "Week"
+msgstr ""
+
+#: gdr2.units.php:422
+msgid "Month"
+msgstr ""
+
+#: gdr2.units.php:423
+msgid "Year"
+msgstr ""
+
+#: gdr2.units.php:424
+msgid "Century"
+msgstr ""
+
+#: gdr2.units.php:425
+msgid "Millennium"
+msgstr ""
+
+#: gdr2.units.php:442
+msgid "Currency"
+msgstr ""
+
+#: gdr2.utils.php:44
+msgid "System"
+msgstr ""
+
+#: gdr2.utils.php:45
+msgid "GMT / UTC"
+msgstr ""
+
+#: gdr2.utils.php:46
+msgid "Local"
+msgstr ""
+

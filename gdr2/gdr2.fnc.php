@@ -2,10 +2,11 @@
 
 /*
 Name:    gdr2_Fnc
-Version: 2.4.4
+Version: 2.5.6
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
+Info:    Collection of functions
 
 == Copyright ==
 Copyright 2008 - 2011 Milan Petrovic (email: milan@gdragon.info)
@@ -208,7 +209,7 @@ if (!function_exists("esc_xml")) {
      * Escaping for XML blocks.
      *
      * @param string $text
-     * @return string
+     * @return string with escaped XML entities.
      */
     function esc_xml($text) {
         $safe_text = str_replace(array('&', '"', "'", '<', '>'), array ('&amp;' , '&quot;', '&apos;' , '&lt;' , '&gt;'), $text);
@@ -233,6 +234,16 @@ if (!function_exists("gdr2_split_textarea")) {
             }
             return $results;
         } else return $elements;
+    }
+}
+
+if (!function_exists("gdr2_wp_flush_rewrite_rules")) {
+    /**
+     * Flush WordPress rewrite rules
+     */
+    function gdr2_wp_flush_rewrite_rules() {
+        global $wp_rewrite;
+        $wp_rewrite->flush_rules();
     }
 }
 
@@ -309,19 +320,16 @@ if (!function_exists("gdr2_readfile")) {
      * @param string $file_path path to the file to read
      * @param bool $return_size return tranfered size
      */
-    function gdr2_readfile($file_path) {
-        $part_size = 1024 * 1024;
-        $buffer = '';
-        $total = 0;
+    function gdr2_readfile($file_path, $part_size = 2) {
+        $part_size = $part_size * 1024 * 1024;
+        $handle = fopen($file_path, "rb");
+        if ($handle === false) {
+            return false;
+        }
 
-        $handle = fopen($file_path, 'rb');
-        if ($handle === false) return false;
-
+        @set_time_limit(0);
         while (!feof($handle)) {
-            @set_time_limit(0);
-            $buffer = fread($handle, $part_size);
-            echo $buffer;
-            ob_flush();
+            echo fread($handle, $part_size);
             flush();
         }
 
@@ -685,6 +693,12 @@ if (!function_exists("gdr2_is_oembed_link")) {
 }
 
 if (!function_exists("php_array_to_js_object")) {
+    /**
+     * Convert array to JavaScript object.
+     *
+     * @param array $array array to convert
+     * @return string json formated object string
+     */
     function php_array_to_js_object($array){
         $obj = array();
         foreach ($array as $key => $value) {
@@ -699,6 +713,13 @@ if (!function_exists("php_array_to_js_object")) {
 }
 
 if (!function_exists("in_iarray")) {
+    /**
+     * Check if the string is in array, using case-insensitive comparison.
+     *
+     * @param string $str string to check in array
+     * @param array $a array to check for the string
+     * @return bool is the string is in array or not.
+     */
     function in_iarray($str, $a){
         foreach($a as $v){
             if (strcasecmp($str, $v) == 0){
@@ -710,6 +731,12 @@ if (!function_exists("in_iarray")) {
 }
 
 if (!function_exists("array_iunique")) {
+    /**
+     * Removes duplicates from array using case-insensitive comparison.
+     *
+     * @param array $a array to check for duplicates
+     * @return array cleaned up array
+     */
     function array_iunique($a){
         $n = array();
         foreach($a as $k => $v) {
@@ -722,18 +749,41 @@ if (!function_exists("array_iunique")) {
 }
 
 if (!function_exists("sprintfa")) {
+    /**
+     * Returns formated strings with array of the arguments. Useful if the number
+     * of arguments isn't fixed.
+     *
+     * @param string $format basic format string
+     * @param array $args replacement strings array
+     * @return string formatted string
+     */
     function sprintfa($format, $args){
         return call_user_func_array('sprintf', array_merge((array)$format, $args));
     }
 }
 
 if (!function_exists("printfa")) {
+    /**
+     * Prints formated strings with array of the arguments. Useful if the number
+     * of arguments isn't fixed.
+     *
+     * @param string $format basic format string
+     * @param array $args replacement strings array
+     * @return int length of formatted string
+     */
     function printfa($format, $args){
         return call_user_func_array('printf', array_merge((array)$format, $args));
     }
 }
 
 if (!function_exists("gdr2_print_array_lines")) {
+    /**
+     * Output lines from array into string.
+     *
+     * @param array $array array to print to string
+     * @param string $none what to use for empty arrays
+     * @return string formatted string output
+     */
     function gdr2_print_array_lines($array, $none = "<em>none</em>") {
         if (is_array($array)) {
             foreach($array as $key => $item) {

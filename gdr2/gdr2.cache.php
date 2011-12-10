@@ -2,10 +2,11 @@
 
 /*
 Name:    gdr2_Cache
-Version: 2.4.4
+Version: 2.5.6
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
+Info:    Cache class and functions
 
 == Copyright ==
 Copyright 2008 - 2011 Milan Petrovic (email: milan@gdragon.info)
@@ -26,6 +27,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 if (!class_exists("gdr2_Cache")) {
+    /**
+     * Cache data using different methods. Transient method supports both site 
+     * and network database tables caching.
+     */
     class gdr2_Cache {
         public $objects = array();
         public $hits = 0;
@@ -37,6 +42,12 @@ if (!class_exists("gdr2_Cache")) {
         private $_length;
         private $_prefix;
 
+        /**
+         * Construct the object.
+         *
+         * @param type $method main caching method to use.
+         * @param type $prefix prefix to use to name the stored data
+         */
         function __construct($method = "transient", $prefix = "gdr2_") {
             $this->_check_apc();
             if (in_array($method, $this->_methods)) {
@@ -57,6 +68,9 @@ if (!class_exists("gdr2_Cache")) {
             return substr($name, 0, $this->_length);
         }
 
+        /**
+         * Display the caching statistics.
+         */
 	public function stats() {
             echo "<p>";
                 echo "<strong>Cache Misses:</strong> ".$this->misses."<br />";
@@ -72,18 +86,37 @@ if (!class_exists("gdr2_Cache")) {
             }
 	}
 
+        /**
+         * Get name for the current main cachine method.
+         *
+         * @return string method name
+         */
         public function get_method() {
             return $this->_method;
         }
 
+        /**
+         * Set caching method.
+         *
+         * @param type $method main caching method to use.
+         */
         public function set_method($method = "transient") {
             if (in_array($method, $this->_methods)) {
                 $this->_method = $method;
             }
         }
 
+        /**
+         * Delete object from cache. For transient cache, the is for network 
+         * meta settings table.
+         *
+         * @param string $name name of the cached object
+         * @param string $method set for method override
+         * @return bool true if deletion is successful
+         */
         public function del_network($name, $method = "") {
             if ($method == "") $method = $this->_method;
+
             switch ($method) {
                 default:
                 case "transient":
@@ -95,8 +128,17 @@ if (!class_exists("gdr2_Cache")) {
             }
         }
 
+        /**
+         * Delete object from cache. For transient cache, the is for site meta
+         * settings table.
+         *
+         * @param string $name name of the cached object
+         * @param string $method set for method override
+         * @return bool true if deletion is successful
+         */
         public function del_site($name, $method = "") {
             if ($method == "") $method = $this->_method;
+
             switch ($method) {
                 default:
                 case "transient":
@@ -105,6 +147,14 @@ if (!class_exists("gdr2_Cache")) {
             }
         }
 
+        /**
+         * Get object from the cache. For transient cache, the is for network 
+         * meta settings table.
+         *
+         * @param string $name name of the cached object
+         * @param string $method set for method override
+         * @return mixed cached object if found, false if it is not found 
+         */
         public function get_network($name, $method = "") {
             if ($method == "") $method = $this->_method;
             $data = false;
@@ -127,6 +177,14 @@ if (!class_exists("gdr2_Cache")) {
             return $data;
         }
 
+        /**
+         * Get object from the cache. For transient cache, the is for site meta 
+         * settings table.
+         *
+         * @param string $name name of the cached object
+         * @param string $method set for method override
+         * @return mixed cached object if found, false if it is not found 
+         */
         public function get_site($name, $method = "") {
             if ($method == "") $method = $this->_method;
             $data = false;
@@ -144,6 +202,16 @@ if (!class_exists("gdr2_Cache")) {
             return $data;
         }
 
+        /**
+         * Store object into cache. For transient cache, the is for network 
+         * meta settings table.
+         *
+         * @param string $name name of the cached object
+         * @param mixed $value object or variable to store
+         * @param int $ttl cache validity lenght in seconds
+         * @param string $method set for method override
+         * @return mixed cached object if found, false if it is not found 
+         */
         public function set_network($name, $value, $ttl = 43200, $method = "") {
             if ($method == "") $method = $this->_method;
             switch ($method) {
@@ -157,6 +225,16 @@ if (!class_exists("gdr2_Cache")) {
             }
         }
 
+        /**
+         * Store object into cache. For transient cache, the is for site meta 
+         * settings table.
+         *
+         * @param string $name name of the cached object
+         * @param mixed $value object or variable to store
+         * @param int $ttl cache validity lenght in seconds
+         * @param string $method set for method override
+         * @return mixed cached object if found, false if it is not found 
+         */
         public function set_site($name, $value, $ttl = 43200, $method = "") {
             if ($method == "") $method = $this->_method;
             switch ($method) {

@@ -2,10 +2,11 @@
 
 /*
 Name:    gdr2_Core
-Version: 2.4.4
+Version: 2.5.6
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
+Info:    Core class with static functions with extra functionality classes
 
 == Copyright ==
 Copyright 2008 - 2011 Milan Petrovic (email: milan@gdragon.info)
@@ -31,9 +32,9 @@ if (!defined("GDR2_TAB")) { define("GDR2_TAB", "\t"); }
 if (!defined("GDR2_EOL2")) { define("GDR2_EOL2", "\r\n\r\n"); }
 if (!defined("GDR2_CHARSET")) { define("GDR2_CHARSET", get_option("blog_charset")); }
 
-if (!class_exists('gdr2_Core')) {
+if (!class_exists("gdr2_Core")) {
     /**
-     * Collection of usefull functions
+     * Collection of useful functions.
      */
     class gdr2_Core {
         /**
@@ -207,8 +208,11 @@ if (!class_exists('gdr2_Core')) {
          * @return string IP address
          */
         public static function visitor_ip() {
-            if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            else $ip = $_SERVER['REMOTE_ADDR'];
+            if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } else {
+                $ip = $_SERVER['REMOTE_ADDR'];
+            }
 
             return trim($ip);
         }
@@ -509,6 +513,18 @@ if (!class_exists('gdr2_Core')) {
             }
         }
     }
+
+    add_action("init", "gdr2_load_translations");
+
+    function gdr2_load_translations() {
+        $l = get_locale();
+        if(!empty($l)) {
+            $moFile = dirname(__FILE__)."/languages/gdr2-".$l.".mo";
+            if (@file_exists($moFile) && is_readable($moFile)) {
+                load_textdomain("gdr2", $moFile);
+            }
+        }
+    }
 }
 
 if (!class_exists("gdr2_ObjectSort")) {
@@ -572,7 +588,7 @@ if (!class_exists("gdrClass")) {
 
 if (!class_exists("gdrBase")) {
     /**
-     * Empty base class with some extra functionalities.
+     * Empty base class similar to stdClass with some extra functionalities.
      */
     class gdrBase {
         function __construct() { }
@@ -587,24 +603,39 @@ if (!class_exists("gdrBase")) {
     }
 }
 
-
 if (!class_exists("gdrMenuIcons")) {
     /**
-     * Empty base class with some extra functionalities.
+     * Class to implement icons for the main menu. 
      */
     abstract class gdrMenuIcons {
         public $icons = array();
         public $url_blank = "";
         public $url_types = "";
 
+        /**
+         * Create the object for icons for WordPress main menu.
+         */
         function __construct() {
             $this->init_links();
             $this->init_icons();
         }
 
-        abstract function init_links();
-        abstract function init_icons();
+        /**
+         * Function to set up links to blank icon and post types icons files.
+         */
+        abstract public function init_links();
 
+        /**
+         * Function to init names for the images in post types icons file.
+         */
+        abstract public function init_icons();
+
+        /**
+         * Get IMG to be used for icon.
+         *
+         * @param string $name icon name
+         * @return string css for the icon
+         */
         public function get_img($name) {
             $x = $this->get_location($name) - 7;
 
@@ -614,6 +645,13 @@ if (!class_exists("gdrMenuIcons")) {
             return $img;
         }
 
+        /**
+         * Get CSS to be used for icon in the WordPress main menu.
+         *
+         * @param string $name icon name
+         * @param string $post_type name for the post type
+         * @return string css for the icon
+         */
         public function get_css($name, $post_type) {
             $x = $this->get_location($name);
 
@@ -627,6 +665,12 @@ if (!class_exists("gdrMenuIcons")) {
             return $css;
         }
 
+        /**
+         * Get location for the icon.
+         *
+         * @param string $name icon name
+         * @return int pixels location
+         */
         public function get_location($name) {
             if (gdr2_is_array_associative($this->icons)) {
                 $id = array_search($name, array_keys($this->icons));
@@ -636,6 +680,15 @@ if (!class_exists("gdrMenuIcons")) {
             return -$id * 30;
         }
     }
+}
+
+/**
+ * Load gdr2 file specified by name
+ *
+ * @param string $name file name, no prefix and extension
+ */
+function gdr2_include($name) {
+    require_once("gdr2.".$name.".php");
 }
 
 require_once("gdr2.fnc.php");

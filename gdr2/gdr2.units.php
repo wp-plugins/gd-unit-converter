@@ -2,7 +2,7 @@
 
 /*
 Name:    gdr2_Units
-Version: 2.4.4
+Version: 2.5.6
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
@@ -27,27 +27,36 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 if (!class_exists("gdr2_Units")) {
+    /**
+     * Class for the conversion of values with different units.
+     */
     class gdr2_Units {
         public $data = array();
 
-        function __construct() {
-            add_action("init", array(&$this, "init"), 1);
+        /**
+         * Runs the initialization of the units convertion arrays.
+         */
+        public function __construct() {
+            $this->init();
         }
 
+        /**
+         * Initialization of conversion arrays.
+         */
         public function init() {
             $this->data = array(
                 "length" => array(
-                    "name" => __("Lenght or Distance"),
+                    "name" => __("Lenght or Distance", "gdr2"),
                     "base" => "mm",
                     "list" => array(
-                        "mm" => __("Millimeter"),
-                        "cm" => __("Centimeter"),
-                        "dm" => __("Decimeter"),
-                        "m" => __("Meter"),
-                        "km" => __("Kilometer"),
-                        "in" => __("Inch"),
-                        "ft" => __("Feet"),
-                        "yd" => __("Yard")
+                        "mm" => __("Millimeter", "gdr2"),
+                        "cm" => __("Centimeter", "gdr2"),
+                        "dm" => __("Decimeter", "gdr2"),
+                        "m" => __("Meter", "gdr2"),
+                        "km" => __("Kilometer", "gdr2"),
+                        "in" => __("Inch", "gdr2"),
+                        "ft" => __("Feet", "gdr2"),
+                        "yd" => __("Yard", "gdr2")
                     ),
                     "convert" => array(
                         "mm" => 1,
@@ -60,18 +69,18 @@ if (!class_exists("gdr2_Units")) {
                         "yd" => 914.4
                     )),
                 "brightness" => array(
-                    "name" => __("Brightness"),
+                    "name" => __("Brightness", "gdr2"),
                     "base" => "sb",
                     "list" => array(
-                        "sb" => __("Stilb"),
-                        "cd/cm2" => __("Candela / square centimeter"),
-                        "cd/m2" => __("Candela / square meter"),
-                        "cd/in2" => __("Candela / square inch"),
-                        "cd/ft2" => __("Candela / square foot"),
-                        "La" => __("Lambert"),
-                        "fL" => __("FootLambert"),
-                        "mL" => __("MeterLambert"),
-                        "mLa" => __("MilliLambert")
+                        "sb" => __("Stilb", "gdr2"),
+                        "cd/cm2" => __("Candela / square centimeter", "gdr2"),
+                        "cd/m2" => __("Candela / square meter", "gdr2"),
+                        "cd/in2" => __("Candela / square inch", "gdr2"),
+                        "cd/ft2" => __("Candela / square foot", "gdr2"),
+                        "La" => __("Lambert", "gdr2"),
+                        "fL" => __("FootLambert", "gdr2"),
+                        "mL" => __("MeterLambert", "gdr2"),
+                        "mLa" => __("MilliLambert", "gdr2")
                     ),
                     "convert" => array(
                         "sb" => 1,
@@ -85,22 +94,22 @@ if (!class_exists("gdr2_Units")) {
                         "mLa" => 0.000318309886184
                     )),
                 "frequency" => array(
-                    "name" => __("Frequency"),
+                    "name" => __("Frequency", "gdr2"),
                     "base" => "Hz",
                     "list" => array(
-                        "Hz" => __("Hertz"),
-                        "kHz" => __("Kilohertz"),
-                        "MHz" => __("Megahertz"),
-                        "GHz" => __("Gigahertz"),
-                        "THz" => __("Terahertz"),
-                        "mHz" => __("Millihertz"),
-                        "rad/hr" => __("Radian / Hour"),
-                        "rad/min" => __("Radian / Minute"),
-                        "rad/s" => __("Radian / Second"),
-                        "deg/hr" => __("Degree / Hour"),
-                        "deg/min" => __("Degree / Minute"),
-                        "deg/s" => __("Degree / Second"),
-                        "cps" => __("Cycle / Second")
+                        "Hz" => __("Hertz", "gdr2"),
+                        "kHz" => __("Kilohertz", "gdr2"),
+                        "MHz" => __("Megahertz", "gdr2"),
+                        "GHz" => __("Gigahertz", "gdr2"),
+                        "THz" => __("Terahertz", "gdr2"),
+                        "mHz" => __("Millihertz", "gdr2"),
+                        "rad/hr" => __("Radian / Hour", "gdr2"),
+                        "rad/min" => __("Radian / Minute", "gdr2"),
+                        "rad/s" => __("Radian / Second", "gdr2"),
+                        "deg/hr" => __("Degree / Hour", "gdr2"),
+                        "deg/min" => __("Degree / Minute", "gdr2"),
+                        "deg/s" => __("Degree / Second", "gdr2"),
+                        "cps" => __("Cycle / Second", "gdr2")
                     ),
                     "convert" => array(
                         "Hz" => 1,
@@ -118,22 +127,22 @@ if (!class_exists("gdr2_Units")) {
                         "cps" => 1,
                     )),
                 "power" => array(
-                    "name" => __("Power"),
+                    "name" => __("Power", "gdr2"),
                     "base" => "W",
                     "list" => array(
-                        "W" => __("Watt"),
-                        "kW" => __("Kilowatt"),
-                        "MB" => __("Megawatt"),
-                        "GB" => __("Gigawatt"),
-                        "hp" => __("Horsepower"),
-                        "hp-m" => __("Horsepower metric"),
-                        "mhp" => __("Millihorsepower"),
-                        "cal/hr" => __("Calorie / hour"),
-                        "cal/min" => __("Calorie / minute"),
-                        "cal/sec" => __("Calorie / second"),
-                        "joule/hr" => __("Joule / hour"),
-                        "joule/min" => __("Joule / minute"),
-                        "joule/sec" => __("Joule / second")
+                        "W" => __("Watt", "gdr2"),
+                        "kW" => __("Kilowatt", "gdr2"),
+                        "MB" => __("Megawatt", "gdr2"),
+                        "GB" => __("Gigawatt", "gdr2"),
+                        "hp" => __("Horsepower", "gdr2"),
+                        "hp-m" => __("Horsepower metric", "gdr2"),
+                        "mhp" => __("Millihorsepower", "gdr2"),
+                        "cal/hr" => __("Calorie / hour", "gdr2"),
+                        "cal/min" => __("Calorie / minute", "gdr2"),
+                        "cal/sec" => __("Calorie / second", "gdr2"),
+                        "joule/hr" => __("Joule / hour", "gdr2"),
+                        "joule/min" => __("Joule / minute", "gdr2"),
+                        "joule/sec" => __("Joule / second", "gdr2")
                     ),
                     "convert" => array(
                         "W" => 1,
@@ -151,22 +160,22 @@ if (!class_exists("gdr2_Units")) {
                         "joule/sec" => 1,
                     )),
                 "memory" => array(
-                    "name" => __("Memory"),
+                    "name" => __("Memory", "gdr2"),
                     "base" => "B",
                     "list" => array(
-                        "bit" => __("Bit"),
-                        "B" => __("Byte"),
-                        "KB" => __("Kilobyte"),
-                        "MB" => __("Megabyte"),
-                        "GB" => __("Gigabyte"),
-                        "TB" => __("Terabyte"),
-                        "PB" => __("Petabyte"),
-                        "CD74" => __("1 CD 74min"),
-                        "CD80" => __("1 CD 80min"),
-                        "DVD" => __("1 DVD"),
-                        "DVDDL" => __("1 DVD Dual Layer"),
-                        "BD" => __("1 BD"),
-                        "BDDL" => __("1 BD Dual Layer")
+                        "bit" => __("Bit", "gdr2"),
+                        "B" => __("Byte", "gdr2"),
+                        "KB" => __("Kilobyte", "gdr2"),
+                        "MB" => __("Megabyte", "gdr2"),
+                        "GB" => __("Gigabyte", "gdr2"),
+                        "TB" => __("Terabyte", "gdr2"),
+                        "PB" => __("Petabyte", "gdr2"),
+                        "CD74" => __("1 CD 74min", "gdr2"),
+                        "CD80" => __("1 CD 80min", "gdr2"),
+                        "DVD" => __("1 DVD", "gdr2"),
+                        "DVDDL" => __("1 DVD Dual Layer", "gdr2"),
+                        "BD" => __("1 BD", "gdr2"),
+                        "BDDL" => __("1 BD Dual Layer", "gdr2")
                     ),
                     "convert" => array(
                         "bit" => 0.125,
@@ -184,13 +193,13 @@ if (!class_exists("gdr2_Units")) {
                         "BDDL" => 53687091200
                     )),
                 "temperature" => array(
-                    "name" => __("Temperature"),
+                    "name" => __("Temperature", "gdr2"),
                     "base" => "C",
                     "list" => array(
-                        "C" => __("Celsius"),
-                        "F" => __("Fahrenheit"),
-                        "K" => __("Kelvin"),
-                        "R" => __("Reaumur")
+                        "C" => __("Celsius", "gdr2"),
+                        "F" => __("Fahrenheit", "gdr2"),
+                        "K" => __("Kelvin", "gdr2"),
+                        "R" => __("Reaumur", "gdr2")
                     ),
                     "convert" => array(
                         "C" => array("ratio" => 1, "offset" => 0),
@@ -199,16 +208,16 @@ if (!class_exists("gdr2_Units")) {
                         "R" => array("ratio" => 0.8, "offset" => 0)
                     )),
                 "weight" => array(
-                    "name" => __("Weight / Mass"),
+                    "name" => __("Weight / Mass", "gdr2"),
                     "base" => "mg",
                     "list" => array(
-                        "mg" => __("Milligram"),
-                        "g" => __("Gram"),
-                        "kg" => __("Kilogram"),
-                        "t" => __("Tonne"),
-                        "oz" => __("Ounce"),
-                        "lb" => __("Pound"),
-                        "carat" => __("Carat")
+                        "mg" => __("Milligram", "gdr2"),
+                        "g" => __("Gram", "gdr2"),
+                        "kg" => __("Kilogram", "gdr2"),
+                        "t" => __("Tonne", "gdr2"),
+                        "oz" => __("Ounce", "gdr2"),
+                        "lb" => __("Pound", "gdr2"),
+                        "carat" => __("Carat", "gdr2")
                     ),
                     "convert" => array(
                         "mg" => 1,
@@ -220,21 +229,21 @@ if (!class_exists("gdr2_Units")) {
                         "carat" => 205.196548333
                     )),
                 "fuel_consumption" => array(
-                    "name" => __("Fuel Consumption"),
+                    "name" => __("Fuel Consumption", "gdr2"),
                     "base" => "L/km",
                     "list" => array(
-                        "L/km" => __("Liter/100 Kilometer"),
-                        "L/mile" => __("Liter/100 Mile"),
-                        "km/L" => __("Kilometer/Liter"),
-                        "mile/L" => __("Mile/Liter"),
-                        "km/gallon/uk" => __("Kilometer/Gallon - UK"),
-                        "km/gallon/us" => __("Kilometer/Gallon - US"),
-                        "mile/gallon/uk" => __("Mile/Gallon - UK"),
-                        "mile/gallon/us" => __("Mile/Gallon - US"),
-                        "gallon/km/uk" => __("Gallon/100 Kilometer - UK"),
-                        "gallon/km/us" => __("Gallon/100 Kilometer - US"),
-                        "gallon/mile/uk" => __("Gallon/100 Mile - UK"),
-                        "gallon/mile/us" => __("Gallon/100 Mile - US")
+                        "L/km" => __("Liter/100 Kilometer", "gdr2"),
+                        "L/mile" => __("Liter/100 Mile", "gdr2"),
+                        "km/L" => __("Kilometer/Liter", "gdr2"),
+                        "mile/L" => __("Mile/Liter", "gdr2"),
+                        "km/gallon/uk" => __("Kilometer/Gallon - UK", "gdr2"),
+                        "km/gallon/us" => __("Kilometer/Gallon - US", "gdr2"),
+                        "mile/gallon/uk" => __("Mile/Gallon - UK", "gdr2"),
+                        "mile/gallon/us" => __("Mile/Gallon - US", "gdr2"),
+                        "gallon/km/uk" => __("Gallon/100 Kilometer - UK", "gdr2"),
+                        "gallon/km/us" => __("Gallon/100 Kilometer - US", "gdr2"),
+                        "gallon/mile/uk" => __("Gallon/100 Mile - UK", "gdr2"),
+                        "gallon/mile/us" => __("Gallon/100 Mile - US", "gdr2")
                     ),
                     "convert" => array(
                         "L/km" => 1,
@@ -251,20 +260,20 @@ if (!class_exists("gdr2_Units")) {
                         "gallon/mile/us" => 2.35214583333333
                     )),
                 "area" => array(
-                    "name" => __("Area"),
+                    "name" => __("Area", "gdr2"),
                     "base" => "m2",
                     "list" => array(
-                        "m2" => __("Square Meter"),
-                        "km2" => __("Square Kilometer"),
-                        "cm2" => __("Square Centimeter"),
-                        "mm2" => __("Square Milliimeter"),
-                        "in2" => __("Square Inch"),
-                        "mi2" => __("Square Mile"),
-                        "ft2" => __("Square Foot"),
-                        "yd2" => __("Square Yard"),
-                        "a" => __("Are"),
-                        "ha" => __("Hectare"),
-                        "acre" => __("Acre")
+                        "m2" => __("Square Meter", "gdr2"),
+                        "km2" => __("Square Kilometer", "gdr2"),
+                        "cm2" => __("Square Centimeter", "gdr2"),
+                        "mm2" => __("Square Milliimeter", "gdr2"),
+                        "in2" => __("Square Inch", "gdr2"),
+                        "mi2" => __("Square Mile", "gdr2"),
+                        "ft2" => __("Square Foot", "gdr2"),
+                        "yd2" => __("Square Yard", "gdr2"),
+                        "a" => __("Are", "gdr2"),
+                        "ha" => __("Hectare", "gdr2"),
+                        "acre" => __("Acre", "gdr2")
                     ),
                     "convert" => array(
                         "m2" => 1,
@@ -280,23 +289,23 @@ if (!class_exists("gdr2_Units")) {
                         "acre" => 4046.8564224
                     )),
                 "energy" => array(
-                    "name" => __("Energy"),
+                    "name" => __("Energy", "gdr2"),
                     "base" => "Wh",
                     "list" => array(
-                        "Wh" => __("Watt Hour"),
-                        "Ws" => __("Watt Second"),
-                        "mWh" => __("Milliwatt Hour"),
-                        "kWh" => __("Kilowatt Hour"),
-                        "MWh" => __("Kilowatt Hour"),
-                        "GWh" => __("Gigawatt Hour"),
-                        "cal" => __("Calorie"),
-                        "kcal" => __("Kilocalorie"),
-                        "J" => __("Joule"),
-                        "kJ" => __("Kilojoule"),
-                        "MJ" => __("Megajoule"),
-                        "GJ" => __("Gigajoule"),
-                        "uJ" => __("Microjoule"),
-                        "mJ" => __("Millijoule")
+                        "Wh" => __("Watt Hour", "gdr2"),
+                        "Ws" => __("Watt Second", "gdr2"),
+                        "mWh" => __("Milliwatt Hour", "gdr2"),
+                        "kWh" => __("Kilowatt Hour", "gdr2"),
+                        "MWh" => __("Kilowatt Hour", "gdr2"),
+                        "GWh" => __("Gigawatt Hour", "gdr2"),
+                        "cal" => __("Calorie", "gdr2"),
+                        "kcal" => __("Kilocalorie", "gdr2"),
+                        "J" => __("Joule", "gdr2"),
+                        "kJ" => __("Kilojoule", "gdr2"),
+                        "MJ" => __("Megajoule", "gdr2"),
+                        "GJ" => __("Gigajoule", "gdr2"),
+                        "uJ" => __("Microjoule", "gdr2"),
+                        "mJ" => __("Millijoule", "gdr2")
                     ),
                     "convert" => array(
                         "Wh" => 1,
@@ -315,14 +324,14 @@ if (!class_exists("gdr2_Units")) {
                         "mJ" => 0.000000277777777778
                     )),
                 "electric_current" => array(
-                    "name" => __("Electric Current"),
+                    "name" => __("Electric Current", "gdr2"),
                     "base" => "A",
                     "list" => array(
-                        "A" => __("Ampere"),
-                        "mA" => __("Milliampere"),
-                        "abamp" => __("Abamper"),
-                        "MA" => __("Megampere"),
-                        "esu/s" => __("Statampere")
+                        "A" => __("Ampere", "gdr2"),
+                        "mA" => __("Milliampere", "gdr2"),
+                        "abamp" => __("Abamper", "gdr2"),
+                        "MA" => __("Megampere", "gdr2"),
+                        "esu/s" => __("Statampere", "gdr2")
                     ),
                     "convert" => array(
                         "A" => 1,
@@ -332,27 +341,27 @@ if (!class_exists("gdr2_Units")) {
                         "esu/s" => 3.33564095198152e-010
                     )),
                 "electrical_charge" => array(
-                    "name" => __("Electrical Charge"),
+                    "name" => __("Electrical Charge", "gdr2"),
                     "base" => "C",
                     "list" => array(
-                        "C" => __("Coulomb"),
-                        "nC" => __("Nanocoulomb"),
-                        "uC" => __("Microcoulomb"),
-                        "mC" => __("Millicoulomb"),
-                        "kC" => __("Kilocoulomb"),
-                        "MC" => __("Megacoulomb"),
-                        "GC" => __("Gigacoulomb"),
-                        "abC" => __("Abcoulomb"),
-                        "emu" => __("Electromagnetic unit of charge"),
-                        "ecu" => __("Electrostatic unit of chargee"),
-                        "F" => __("Faraday"),
-                        "Fr" => __("Franklin"),
-                        "Ah" => __("Ampere Hour"),
-                        "Am" => __("Ampere Minute"),
-                        "As" => __("Ampere Second"),
-                        "mAh" => __("Milliampere Hour"),
-                        "mAm" => __("Milliampere Minute"),
-                        "mAs" => __("Milliampere Second")
+                        "C" => __("Coulomb", "gdr2"),
+                        "nC" => __("Nanocoulomb", "gdr2"),
+                        "uC" => __("Microcoulomb", "gdr2"),
+                        "mC" => __("Millicoulomb", "gdr2"),
+                        "kC" => __("Kilocoulomb", "gdr2"),
+                        "MC" => __("Megacoulomb", "gdr2"),
+                        "GC" => __("Gigacoulomb", "gdr2"),
+                        "abC" => __("Abcoulomb", "gdr2"),
+                        "emu" => __("Electromagnetic unit of charge", "gdr2"),
+                        "ecu" => __("Electrostatic unit of chargee", "gdr2"),
+                        "F" => __("Faraday", "gdr2"),
+                        "Fr" => __("Franklin", "gdr2"),
+                        "Ah" => __("Ampere Hour", "gdr2"),
+                        "Am" => __("Ampere Minute", "gdr2"),
+                        "As" => __("Ampere Second", "gdr2"),
+                        "mAh" => __("Milliampere Hour", "gdr2"),
+                        "mAm" => __("Milliampere Minute", "gdr2"),
+                        "mAs" => __("Milliampere Second", "gdr2")
                     ),
                     "convert" => array(
                         "C" => 1,
@@ -375,13 +384,13 @@ if (!class_exists("gdr2_Units")) {
                         "mAs" => 0.001
                     )),
                 "speed" => array(
-                    "name" => __("Speed"),
+                    "name" => __("Speed", "gdr2"),
                     "base" => "kph",
                     "list" => array(
-                        "mps" => __("Meters per second"),
-                        "kph" => __("Kilometers per hour"),
-                        "mph" => __("Miles per hour"),
-                        "kn" => __("Knots")
+                        "mps" => __("Meters per second", "gdr2"),
+                        "kph" => __("Kilometers per hour", "gdr2"),
+                        "mph" => __("Miles per hour", "gdr2"),
+                        "kn" => __("Knots", "gdr2")
                     ),
                     "convert" => array(
                         "mps" => 3.6,
@@ -390,15 +399,15 @@ if (!class_exists("gdr2_Units")) {
                         "kn" => 1.852
                     )),
                 "angle" => array(
-                    "name" => __("Angle"),
+                    "name" => __("Angle", "gdr2"),
                     "base" => "radian",
                     "list" => array(
-                        "radian" => __("Radian"),
-                        "grad" => __("Grad"),
-                        "degree" => __("Degree"),
-                        "minute" => __("Minute"),
-                        "second" => __("Second"),
-                        "revolution" => __("Revolution"),
+                        "radian" => __("Radian", "gdr2"),
+                        "grad" => __("Grad", "gdr2"),
+                        "degree" => __("Degree", "gdr2"),
+                        "minute" => __("Minute", "gdr2"),
+                        "second" => __("Second", "gdr2"),
+                        "revolution" => __("Revolution", "gdr2"),
                     ),
                     "convert" => array(
                         "radian" => 1,
@@ -409,21 +418,21 @@ if (!class_exists("gdr2_Units")) {
                         "revolution" => 6.283185307,
                     )),
                 "time" => array(
-                    "name" => __("Time"),
+                    "name" => __("Time", "gdr2"),
                     "base" => "ns",
                     "list" => array(
-                        "ns" => __("Nanosecond"),
-                        "us" => __("Microsecond"),
-                        "ms" => __("Millisecond"),
-                        "s" => __("Second"),
-                        "min" => __("Minute"),
-                        "hour" => __("Hour"),
-                        "day" => __("Day"),
-                        "week" => __("Week"),
-                        "month" => __("Month"),
-                        "year" => __("Year"),
-                        "century" => __("Century"),
-                        "millennium" => __("Millennium")
+                        "ns" => __("Nanosecond", "gdr2"),
+                        "us" => __("Microsecond", "gdr2"),
+                        "ms" => __("Millisecond", "gdr2"),
+                        "s" => __("Second", "gdr2"),
+                        "min" => __("Minute", "gdr2"),
+                        "hour" => __("Hour", "gdr2"),
+                        "day" => __("Day", "gdr2"),
+                        "week" => __("Week", "gdr2"),
+                        "month" => __("Month", "gdr2"),
+                        "year" => __("Year", "gdr2"),
+                        "century" => __("Century", "gdr2"),
+                        "millennium" => __("Millennium", "gdr2")
                     ),
                     "convert" => array(
                         "ns" => 1,
@@ -440,7 +449,7 @@ if (!class_exists("gdr2_Units")) {
                         "millennium" => 31556926000000000000
                     )),
                 "currency" => array(
-                    "name" => __("Currency"),
+                    "name" => __("Currency", "gdr2"),
                     "list" => array(
                         "AED" => "United Arab Emirates Dirham (AED)",
                         "ANG" => "Netherlands Antillean Guilder (ANG)",
@@ -539,12 +548,23 @@ if (!class_exists("gdr2_Units")) {
             );
         }
 
+        /**
+         * Get values for the a unit.
+         *
+         * @param string $name name of the unit
+         * @return array unit values
+         */
         public function get_values($name) {
             $data = $this->data[$name]["list"];
             $data = apply_filters("gdr2_unit_values_for_".$name, $data);
             return $data;
         }
 
+        /**
+         * Get the list of units.
+         *
+         * @return array associative array with units
+         */
         public function get_units() {
             $data = array();
             foreach ($this->data as $unit => $obj) {
@@ -553,6 +573,51 @@ if (!class_exists("gdr2_Units")) {
             return $data;
         }
 
+        /**
+         * Convert value from base unit value to selected unit.
+         *
+         * @param string $name name of the unit type
+         * @param number $value value to convert
+         * @param string $to name of the unit to convert into
+         * @return number converted value
+         */
+        public function from_base($name, $value, $to) {
+            if (!isset($this->data[$name])) return null;
+
+            if ($name != "currency") {
+                return $this->convert($name, $value, $this->data[$name]["base"], $to);
+            } else {
+                return null;
+            }
+        }
+
+        /**
+         * Convert value to base unit value from selected unit.
+         *
+         * @param string $name name of the unit type
+         * @param number $value value to convert
+         * @param string $from name of the unit to convert from
+         * @return number converted value
+         */
+        public function to_base($name, $value, $from) {
+            if (!isset($this->data[$name])) return null;
+
+            if ($name != "currency") {
+                return $this->convert($name, $value, $from, $this->data[$name]["base"]);
+            } else {
+                return null;
+            }
+        }
+
+        /**
+         * Convert value for unit.
+         *
+         * @param string $name name of the unit type
+         * @param number $value value to convert
+         * @param string $from name of the unit to convert from
+         * @param string $to name of the unit to convert into
+         * @return number converted value
+         */
         public function convert($name, $value, $from, $to) {
             if (!isset($this->data[$name])) return null;
 
@@ -602,6 +667,10 @@ if (!class_exists("gdr2_Units")) {
                 gdr2c_set_network($key, $rate, 86400);
             }
 
+            if ($rate === false || is_null($rate) || empty($rate)) {
+                return null;
+            }
+
             $rate = $reverse ? 1 / $rate : $rate;
             return $rate * $value;
         }
@@ -629,8 +698,44 @@ if (!class_exists("gdr2_Units")) {
         }
     }
 
+    global $gdr2_units;
     $gdr2_units = new gdr2_Units();
 
+    /**
+     * Convert value from base for the units category to specified unit.
+     *
+     * @param string $name unit category name
+     * @param mixed $value value to convert
+     * @param string $to unit to convert to
+     * @return mixed converted value
+     */
+    function gdr2_unit_from_base($name, $value, $to) {
+        global $gdr2_units;
+        return $gdr2_units->from_base($name, $value, $to);
+    }
+
+    /**
+     * Convert value to base for the units category from specified unit.
+     *
+     * @param string $name unit category name
+     * @param mixed $value value to convert
+     * @param string $from unit to convert from
+     * @return mixed converted value
+     */
+    function gdr2_unit_to_base($name, $value, $from) {
+        global $gdr2_units;
+        return $gdr2_units->to_base($name, $value, $from);
+    }
+
+    /**
+     * Convert value from one unit to another for the specified unit category.
+     *
+     * @param string $name unit category name
+     * @param mixed $value value to convert
+     * @param string $from unit to convert from
+     * @param string $to unit to convert to
+     * @return mixed converted value
+     */
     function gdr2_unit_convert($name, $value, $from, $to) {
         global $gdr2_units;
         return $gdr2_units->convert($name, $value, $from, $to);

@@ -2,7 +2,7 @@
 
 /*
 Name:    gdr2_Log
-Version: 2.4.4
+Version: 2.5.6
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
@@ -36,10 +36,10 @@ if (!class_exists('gdr2_Log')) {
         /**
          * Constructor
          *
-         * @param string $log_url
+         * @param string $log_path full path to the log file.
          */
-        function __construct($log_url = '') {
-            $this->log_file = $log_url;
+        function __construct($log_path = '') {
+            $this->log_file = $log_path;
 
             if ($this->log_file != '') {
                 if (file_exists($this->log_file) && is_writable($this->log_file)) {
@@ -49,20 +49,12 @@ if (!class_exists('gdr2_Log')) {
         }
 
         /**
-         * Truncates log file to zero lenght deleting all data inside.
-         */
-        function truncate() {
-            $f = fopen($this->log_file, "w+");
-            fclose($f);
-        }
-
-        /**
          * Prepare array name/value pairs for logging.
          *
          * @param array $info value pairs to prepare
-         * @return string results
+         * @return string resulting values
          */
-        function prepare_array($info) {
+        private function prepare_array($info) {
             $wr = "";
             foreach ($info as $name => $value) {
                 $wr.= $name.": ".$value."\r\n";
@@ -71,12 +63,20 @@ if (!class_exists('gdr2_Log')) {
         }
 
         /**
+         * Truncates log file to zero lenght deleting all data inside.
+         */
+        public function truncate() {
+            $f = fopen($this->log_file, "w+");
+            fclose($f);
+        }
+
+        /**
          * Writes log info name/value into the file withou heading.
          *
          * @param mixed $object object to dump
          * @param string $mode file open mode
         */
-        function slog($info, $mode = "a+") {
+        public function slog($info, $mode = "a+") {
             if ($this->active) {
                 $info = $this->prepare_array($info);
                 $f = fopen($this->log_file, $mode);
@@ -93,7 +93,7 @@ if (!class_exists('gdr2_Log')) {
          * @param mixed $object object to dump
          * @param string $mode file open mode
         */
-        function log($msg, $info, $mode = "a+") {
+        public function log($msg, $info, $mode = "a+") {
             if ($this->active) {
                 $info = $this->prepare_array($info);
                 $f = fopen($this->log_file, $mode);
@@ -110,7 +110,7 @@ if (!class_exists('gdr2_Log')) {
          * @param mixed $object object to dump
          * @param string $mode file open mode
         */
-        function sdump($object, $mode = "a+") {
+        public function sdump($object, $mode = "a+") {
             if ($this->active) {
                 $obj = print_r($object, true);
                 $f = fopen($this->log_file, $mode);
@@ -128,7 +128,7 @@ if (!class_exists('gdr2_Log')) {
          * @param string $block adds start or end dump limiters { none | start | end }
          * @param string $mode file open mode
         */
-        function dump($msg, $object, $block = "none", $mode = "a+") {
+        public function dump($msg, $object, $block = "none", $mode = "a+") {
             if ($this->active) {
                 $obj = print_r($object, true);
                 $f = fopen($this->log_file, $mode);

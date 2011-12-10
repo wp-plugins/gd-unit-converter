@@ -30,7 +30,7 @@ $categories = $gdr2_units->get_units();
                 <select id="gduc-from"></select>
             </td>
             <td style="width: 58px;">
-                <input id="gduc-convert" type="button" value="<?php _e("TO"); ?>" />
+                <input id="gduc-convert" type="button" value="<?php _e("TO", "gd-unit-converter"); ?>" />
             </td>
             <td>
                 <select id="gduc-to"></select>
