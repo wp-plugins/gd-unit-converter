@@ -682,13 +682,15 @@ if (!class_exists("gdrMenuIcons")) {
     }
 }
 
-/**
- * Load gdr2 file specified by name
- *
- * @param string $name file name, no prefix and extension
- */
-function gdr2_include($name) {
-    require_once("gdr2.".$name.".php");
+if (!function_exists("gdr2_include")) {
+    /**
+     * Load gdr2 file specified by name
+     *
+     * @param string $name file name, no prefix and extension
+     */
+    function gdr2_include($name) {
+        require_once("gdr2.".$name.".php");
+    }
 }
 
 require_once("gdr2.fnc.php");

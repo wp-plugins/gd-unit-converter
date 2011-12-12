@@ -1,7 +1,7 @@
 === GD Unit Converter ===
 Contributors: gdragon
 Donate link: http://www.dev4press.com/
-Version: 1.1.0
+Version: 1.1.1
 Tags: dashboard, dashboard widget, dev4press, unit, units, converter, convert, unit converter, gdragon, currency
 Requires at least: 3.0
 Tested up to: 3.3
