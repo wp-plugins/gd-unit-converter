@@ -2,14 +2,14 @@
 
 /*
 Name:    gdr2_Cache
-Version: 2.5.6
+Version: 2.7.7.2
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
 Info:    Cache class and functions
 
 == Copyright ==
-Copyright 2008 - 2011 Milan Petrovic (email: milan@gdragon.info)
+Copyright 2008 - 2012 Milan Petrovic (email: milan@gdragon.info)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-if (!class_exists("gdr2_Cache")) {
+if (!class_exists('gdr2_Cache')) {
     /**
      * Cache data using different methods. Transient method supports both site 
      * and network database tables caching.
@@ -37,8 +37,8 @@ if (!class_exists("gdr2_Cache")) {
         public $size = 0;
         public $misses = 0;
 
-        private $_methods = array("transient");
-        private $_method = "transient";
+        private $_methods = array('transient');
+        private $_method = 'transient';
         private $_length;
         private $_prefix;
 
@@ -48,19 +48,21 @@ if (!class_exists("gdr2_Cache")) {
          * @param type $method main caching method to use.
          * @param type $prefix prefix to use to name the stored data
          */
-        function __construct($method = "transient", $prefix = "gdr2_") {
+        function __construct($method = 'transient', $prefix = 'gdr2_') {
             $this->_check_apc();
+
             if (in_array($method, $this->_methods)) {
                 $this->_method = $method;
             }
+
             $this->_prefix = $prefix;
             $this->_length = 45 - strlen($prefix);
             define('GDR2_CACHE_ACTIVE', true);
         }
 
         private function _check_apc() {
-            if (function_exists("apc_cache_info")) {
-                $this->_methods[] = "apc";
+            if (function_exists('apc_cache_info')) {
+                $this->_methods[] = 'apc';
             }
         }
 
@@ -77,6 +79,7 @@ if (!class_exists("gdr2_Cache")) {
                 echo "<strong>Cache Hits:</strong> ".$this->hits."<br />";
                 echo "<strong>Cache Size:</strong> ".gdr2_Core::size_format($this->size);
             echo "</p>";
+
             if (!empty($this->objects)) {
                 echo '<ul>';
                 foreach ($this->objects as $key => $size) {
@@ -100,7 +103,7 @@ if (!class_exists("gdr2_Cache")) {
          *
          * @param type $method main caching method to use.
          */
-        public function set_method($method = "transient") {
+        public function set_method($method = 'transient') {
             if (in_array($method, $this->_methods)) {
                 $this->_method = $method;
             }
@@ -114,15 +117,17 @@ if (!class_exists("gdr2_Cache")) {
          * @param string $method set for method override
          * @return bool true if deletion is successful
          */
-        public function del_network($name, $method = "") {
-            if ($method == "") $method = $this->_method;
+        public function del_network($name, $method = '') {
+            if ($method == '') {
+                $method = $this->_method;
+            }
 
             switch ($method) {
                 default:
-                case "transient":
+                case 'transient':
                     return delete_site_transient($this->_prefix.$this->_name($name));
                     break;
-                case "apc":
+                case 'apc':
                     return $this->del_site($name, $method);
                     break;
             }
@@ -136,12 +141,14 @@ if (!class_exists("gdr2_Cache")) {
          * @param string $method set for method override
          * @return bool true if deletion is successful
          */
-        public function del_site($name, $method = "") {
-            if ($method == "") $method = $this->_method;
+        public function del_site($name, $method = '') {
+            if ($method == '') {
+                $method = $this->_method;
+            }
 
             switch ($method) {
                 default:
-                case "transient":
+                case 'transient':
                     return delete_transient($this->_prefix.$this->_name($name));
                     break;
             }
@@ -156,24 +163,31 @@ if (!class_exists("gdr2_Cache")) {
          * @return mixed cached object if found, false if it is not found 
          */
         public function get_network($name, $method = "") {
-            if ($method == "") $method = $this->_method;
+            if ($method == '') {
+                $method = $this->_method;
+            }
+
             $data = false;
+
             switch ($method) {
                 default:
-                case "transient":
+                case 'transient':
                     $data = get_site_transient($this->_prefix.$this->_name($name));
                     break;
-                case "apc":
+                case 'apc':
                     $data = $this->get_site($name, $method);
                     break;
             }
-            if ($data === false) $this->misses++;
-            else {
+
+            if ($data === false) {
+                $this->misses++;
+            } else {
                 $size = strlen(serialize($data));
-                if (defined("WP_DEBUG") && WP_DEBUG) $this->objects[$name] = $size;
+                if (defined('WP_DEBUG') && WP_DEBUG) $this->objects[$name] = $size;
                 $this->size+= $size;
                 $this->hits++;
             }
+
             return $data;
         }
 
@@ -185,20 +199,27 @@ if (!class_exists("gdr2_Cache")) {
          * @param string $method set for method override
          * @return mixed cached object if found, false if it is not found 
          */
-        public function get_site($name, $method = "") {
-            if ($method == "") $method = $this->_method;
+        public function get_site($name, $method = '') {
+            if ($method == '') {
+                $method = $this->_method;
+            }
+
             $data = false;
+
             switch ($method) {
                 default:
-                case "transient":
+                case 'transient':
                     $data = get_transient($this->_prefix.$this->_name($name));
                     break;
             }
-            if ($data === false) $this->misses++;
-            else {
+
+            if ($data === false) {
+                $this->misses++;
+            } else {
                 $this->size+= strlen(serialize($data));
                 $this->hits++;
             }
+
             return $data;
         }
 
@@ -212,14 +233,17 @@ if (!class_exists("gdr2_Cache")) {
          * @param string $method set for method override
          * @return mixed cached object if found, false if it is not found 
          */
-        public function set_network($name, $value, $ttl = 43200, $method = "") {
-            if ($method == "") $method = $this->_method;
+        public function set_network($name, $value, $ttl = 43200, $method = '') {
+            if ($method == '') {
+                $method = $this->_method;
+            }
+
             switch ($method) {
                 default:
-                case "transient":
+                case 'transient':
                     return set_site_transient($this->_prefix.$this->_name($name), $value, $ttl);
                     break;
-                case "apc":
+                case 'apc':
                     return $this->set_site($name, $value, $ttl, $method);
                     break;
             }
@@ -236,56 +260,60 @@ if (!class_exists("gdr2_Cache")) {
          * @return mixed cached object if found, false if it is not found 
          */
         public function set_site($name, $value, $ttl = 43200, $method = "") {
-            if ($method == "") $method = $this->_method;
+            if ($method == '') {
+                $method = $this->_method;
+            }
+
             switch ($method) {
                 default:
-                case "transient":
+                case 'transient':
                     return set_transient($this->_prefix.$this->_name($name), $value, $ttl);
                     break;
             }
         }
     }
 
+    global $gdr2_cache_core;
     $gdr2_cache_core = new gdr2_Cache();
 }
 
-if (!function_exists("gdr2c_del")) {
-    function gdr2c_del($name, $method = "") {
+if (!function_exists('gdr2c_del')) {
+    function gdr2c_del($name, $method = '') {
         global $gdr2_cache_core;
         return $gdr2_cache_core->del_site($name, $method);
     }
 }
 
-if (!function_exists("gdr2c_get")) {
-    function gdr2c_get($name, $method = "") {
+if (!function_exists('gdr2c_get')) {
+    function gdr2c_get($name, $method = '') {
         global $gdr2_cache_core;
         return $gdr2_cache_core->get_site($name, $method);
     }
 }
 
-if (!function_exists("gdr2c_set")) {
-    function gdr2c_set($name, $value, $ttl = 43200, $method = "") {
+if (!function_exists('gdr2c_set')) {
+    function gdr2c_set($name, $value, $ttl = 43200, $method = '') {
         global $gdr2_cache_core;
         return $gdr2_cache_core->set_site($name, $value, $ttl, $method);
     }
 }
 
-if (!function_exists("gdr2c_del_network")) {
-    function gdr2c_del_network($name, $method = "") {
+if (!function_exists('gdr2c_del_network')) {
+    function gdr2c_del_network($name, $method = '') {
         global $gdr2_cache_core;
         return $gdr2_cache_core->del_network($name, $method);
     }
 }
 
-if (!function_exists("gdr2c_get_network")) {
-    function gdr2c_get_network($name, $method = "") {
+if (!function_exists('gdr2c_get_network')) {
+    function gdr2c_get_network($name, $method = '') {
         global $gdr2_cache_core;
         return $gdr2_cache_core->get_network($name, $method);
     }
 }
 
-if (!function_exists("gdr2c_set_network")) {
-    function gdr2c_set_network($name, $value, $ttl = 43200, $method = "") {
+if (!function_exists('gdr2c_set_network')) {
+    function gdr2c_set_network($name, $value, $ttl = 43200, $method = '') {
         global $gdr2_cache_core;
         return $gdr2_cache_core->set_network($name, $value, $ttl, $method);
     }

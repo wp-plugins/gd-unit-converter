@@ -2,14 +2,14 @@
 
 /*
 Name:    gdr2_Units
-Version: 2.5.6
+Version: 2.7.7.2
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
 Info:    http://en.wikipedia.org/wiki/Unit_conversion
 
 == Copyright ==
-Copyright 2008 - 2011 Milan Petrovic (email: milan@gdragon.info)
+Copyright 2008 - 2012 Milan Petrovic (email: milan@gdragon.info)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -455,7 +455,6 @@ if (!class_exists("gdr2_Units")) {
                         "ANG" => "Netherlands Antillean Guilder (ANG)",
                         "ARS" => "Argentine Peso (ARS)",
                         "AUD" => "Australian Dollar (AUD)",
-                        "BDT" => "Bangladeshi Taka (BDT)",
                         "BGN" => "Bulgarian Lev (BGN)",
                         "BHD" => "Bahraini Dinar (BHD)",
                         "BND" => "Brunei Dollar (BND)",
@@ -538,7 +537,8 @@ if (!class_exists("gdr2_Units")) {
                         "USD" => "US Dollar (USD)",
                         "UYU" => "Uruguayan Peso (UYU)",
                         "UZS" => "Uzbekistan Som (UZS)",
-                        "VEF" => "Venezuelan Bolivar (VEF)",
+                        "VEB" => "Venezuelan Bolivar (VEB)",
+                        "VEF" => "Venezuelan Bolivar Fuertes (VEF)",
                         "VND" => "Vietnamese Dong (VND)",
                         "XOF" => "CFA Franc BCEAO (XOF)",
                         "YER" => "Yemeni Rial (YER)",
@@ -739,6 +739,25 @@ if (!class_exists("gdr2_Units")) {
     function gdr2_unit_convert($name, $value, $from, $to) {
         global $gdr2_units;
         return $gdr2_units->convert($name, $value, $from, $to);
+    }
+}
+
+if (!function_exists("gdr2_unit_is_valid")) {
+    /**
+     * Check if unit is valid.
+     *
+     * @param string $name unit category name
+     * @param string $unit unit name
+     * @return bool
+     */
+    function gdr2_unit_is_valid($name, $unit) {
+        global $gdr2_units;
+
+        if (isset($gdr2_units->data[$name])) {
+            return isset($gdr2_units->data[$name]["list"][$unit]);
+        } else {
+            return false;
+        }
     }
 }
 

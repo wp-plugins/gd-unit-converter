@@ -2,14 +2,14 @@
 
 /*
 Name:    gdr2_Core
-Version: 2.5.6
+Version: 2.7.7.2
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
 Info:    Core class with static functions with extra functionality classes
 
 == Copyright ==
-Copyright 2008 - 2011 Milan Petrovic (email: milan@gdragon.info)
+Copyright 2008 - 2012 Milan Petrovic (email: milan@gdragon.info)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,13 +26,23 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// End of line and tab delimiters. //
-if (!defined("GDR2_EOL")) { define("GDR2_EOL", "\r\n"); }
-if (!defined("GDR2_TAB")) { define("GDR2_TAB", "\t"); }
-if (!defined("GDR2_EOL2")) { define("GDR2_EOL2", "\r\n\r\n"); }
-if (!defined("GDR2_CHARSET")) { define("GDR2_CHARSET", get_option("blog_charset")); }
+/**
+ * Library version and build
+ */
+if (!defined('GDR2_VERSION')) { 
+    define('GDR2_VERSION', '2.7.7.2');
+    define('GDR2_BUILD', '922');
+}
 
-if (!class_exists("gdr2_Core")) {
+/**
+ * Main library constants
+ */
+if (!defined('GDR2_EOL')) { define('GDR2_EOL', "\r\n"); }
+if (!defined('GDR2_TAB')) { define('GDR2_TAB', "\t"); }
+if (!defined('GDR2_EOL2')) { define('GDR2_EOL2', "\r\n\r\n"); }
+if (!defined('GDR2_CHARSET')) { define('GDR2_CHARSET', get_option('blog_charset')); }
+
+if (!class_exists('gdr2_Core')) {
     /**
      * Collection of useful functions.
      */
@@ -46,8 +56,7 @@ if (!class_exists("gdr2_Core")) {
         public static function count_authors($status = array("publish")) {
             global $wpdb;
 
-            $sql = sprintf("select count(distinct post_author) from %s where post_status in ('%s')",
-                    $wpdb->posts, join("', '", $status));
+            $sql = sprintf("select count(distinct post_author) from %s where post_status in ('%s')", $wpdb->posts, join("', '", $status));
             return intval($wpdb->get_var($sql));
         }
 
@@ -55,10 +64,10 @@ if (!class_exists("gdr2_Core")) {
          * Unload all jQueryUI components on the page.
          */
         public static function unload_jquery() {
-            wp_deregister_script("jquery-ui-tabs");
-            wp_deregister_script("jquery-ui-core");
-            wp_deregister_script("jquery-ui-sortable");
-            wp_deregister_script("thesis-admin-js");
+            wp_deregister_script('jquery-ui-tabs');
+            wp_deregister_script('jquery-ui-core');
+            wp_deregister_script('jquery-ui-sortable');
+            wp_deregister_script('thesis-admin-js');
         }
 
         /**
@@ -70,11 +79,13 @@ if (!class_exists("gdr2_Core")) {
          * @param string $reg_expr regular expression to match names
          * @return array list of files and folders in the folder
          */
-        public static function scan_dir($path, $filter = "files", $extensions = array(), $reg_expr = "") {
+        public static function scan_dir($path, $filter = 'files', $extensions = array(), $reg_expr = '') {
             $extensions = (array)$extensions;
-            $filter = !in_array($filter, array("folders", "files", "all")) ? "files" : $filter;
+            $filter = !in_array($filter, array('folders', 'files', 'all')) ? 'files' : $filter;
             $path = str_replace('\\', '/', $path);
-            $files = $final = array();
+
+            $files = array();
+            $final = array();
 
             if (file_exists($path)) {
                 $files = scandir($path);
@@ -82,13 +93,15 @@ if (!class_exists("gdr2_Core")) {
                 $path = rtrim($path, "/")."/";
                 foreach ($files as $file) {
                     $ext = get_extension($file);
+
                     if (empty($extensions) || in_array($ext, $extensions)) {
                         if (substr($file, 0, 1) != ".") {
                             if ((is_dir($path.$file) && (in_array($filter, array("folders", "all")))) ||
                                 (is_file($path.$file) && (in_array($filter, array("files", "all")))) ||
                                 ((is_file($path.$file) || is_dir($path.$file)) && (in_array($filter, array("all"))))) {
-                                    if ($reg_expr == "") $final[] = $file;
-                                    else if (preg_match($reg_expr, $file)) {
+                                    if ($reg_expr == "") {
+                                        $final[] = $file;
+                                    } else if (preg_match($reg_expr, $file)) {
                                         $final[] = $file;
                                     }
                             }
@@ -114,6 +127,7 @@ if (!class_exists("gdr2_Core")) {
             if ($handle = opendir($path)) {
                 while (false !== ($file = readdir($handle))) {
                     $nextpath = $path . '/' . $file;
+
                     if ($file != '.' && $file != '..' && !is_link($nextpath)) {
                         if (is_dir ($nextpath)) {
                             $dircount++;
@@ -123,6 +137,7 @@ if (!class_exists("gdr2_Core")) {
                             $dircount+= $result['directories'];
                         } else if (is_file($nextpath)) {
                             $ext = get_extension($file);
+
                             if (empty($extensions) || in_array($ext, $extensions)) {
                                 $totalsize += filesize ($nextpath);
                                 $totalcount++;
@@ -133,10 +148,8 @@ if (!class_exists("gdr2_Core")) {
             }
 
             closedir($handle);
-            $total['size'] = $totalsize;
-            $total['count'] = $totalcount;
-            $total['directories'] = $dircount;
-            return $total;
+
+            return array('size' => $totalsize, 'count' => $totalcount, 'directories' => $dircount);
         }
 
         /**
@@ -148,12 +161,19 @@ if (!class_exists("gdr2_Core")) {
          * @param bool $before add it before (true) or after (false)
          * @return string filled text
          */
-        public static function fill_length($text, $len, $character = "0", $before = true) {
+        public static function fill_length($text, $len, $character = '0', $before = true) {
             $count = strlen($text);
             $zeros = "";
-            for ($i = 0; $i < $len - $count; $i++) $zeros.= $character;
-            if ($before) return $zeros.$text;
-            else return $text.$zeros;
+
+            for ($i = 0; $i < $len - $count; $i++) {
+                $zeros.= $character;
+            }
+
+            if ($before) {
+                return $zeros.$text;
+            } else {
+                return $text.$zeros;
+            }
         }
 
         /**
@@ -166,11 +186,15 @@ if (!class_exists("gdr2_Core")) {
             if (!is_writable($path)) {
                 if (!@chmod($path, 0644)) {
                     $dir_path = dirname($path);
+
                     if (!is_writable($dir_path)) {
-                        if (!@chmod($dir_path, 0644)) return false;
+                        if (!@chmod($dir_path, 0644)) {
+                            return false;
+                        }
                     }
                 }
             }
+
             return true;
         }
 
@@ -193,12 +217,15 @@ if (!class_exists("gdr2_Core")) {
                 "crawleradmin.t-info@telekom.de", "TurnitinBot", "W3C-checklink", "yacybot", "Yahoo-MMCrawler",
                 "Yahoo! DE Slurp", "Yahoo! Slurp", "YahooSeeker", "Pingdom.com");
 
-            $spiders = apply_filters("gdr2_core_bots_list", $spiders);
+            $spiders = apply_filters('gdr2_core_bots_list', $spiders);
             $str = $_SERVER['HTTP_USER_AGENT'];
+
             foreach($spiders as $spider) {
-            if (preg_match("/".$spider."/", $str))
-                return true;
+                if (preg_match("/".$spider."/", $str)) {
+                    return true;
+                }
             }
+
             return false;
         }
 
@@ -214,6 +241,8 @@ if (!class_exists("gdr2_Core")) {
                 $ip = $_SERVER['REMOTE_ADDR'];
             }
 
+            $ip = preg_replace('/[^0-9a-fA-F:., ]/', '', $ip);
+
             return trim($ip);
         }
 
@@ -224,9 +253,13 @@ if (!class_exists("gdr2_Core")) {
          * @return string image url
          */
         public static function get_image_from_text($text) {
-            $imageurl = "";
+            $imageurl = '';
             preg_match('/<\s*img [^\>]*src\s*=\s*[\""\']?([^\""\'>]*)/i', $text, $matches);
-            if (is_array($matches) && isset($matches[1])) $imageurl = $matches[1];
+
+            if (is_array($matches) && isset($matches[1])) {
+                $imageurl = $matches[1];
+            }
+
             return $imageurl;
         }
 
@@ -243,7 +276,9 @@ if (!class_exists("gdr2_Core")) {
             $bt = array_reverse($bt);
             foreach ((array)$bt as $call) {
                 $function = $call['function'];
-                if (isset($call['class'])) $function = $call['class']."->$function";
+                if (isset($call['class'])) {
+                    $function = $call['class']."->$function";
+                }
                 $caller[] = $function;
             }
 
@@ -259,6 +294,7 @@ if (!class_exists("gdr2_Core")) {
          */
         public static function size_format($size) {
             $size = intval($size);
+
             if (strlen($size) <= 9 && strlen($size) >= 7) {
                 $size = number_format($size / 1048576, 1);
                 return "$size MB";
@@ -268,7 +304,9 @@ if (!class_exists("gdr2_Core")) {
             } else if (strlen($size) <= 6 && strlen($size) >= 4) {
                 $size = number_format($size / 1024, 1);
                 return "$size KB";
-            } else return "$size B";
+            } else {
+                return "$size B";
+            }
         }
 
         /**
@@ -304,10 +342,11 @@ if (!class_exists("gdr2_Core")) {
          */
         public static function trim_to_words($text, $words_count = 10) {
             if ($words_count > 0) {
-                $words = explode(' ', $text, $words_count + 1);
+                $words = explode(" ", $text, $words_count + 1);
+
                 if (count($words) > $words_count) {
                     $words = array_slice($words, 0, $words_count);
-                    $text = implode(' ', $words)."...";
+                    $text = implode(" ", $words)."...";
                 }
             }
             return $text;
@@ -322,7 +361,9 @@ if (!class_exists("gdr2_Core")) {
          * @return array new array
          */
         public static function unset_by_value($arr, $val, $preserve_keys = true) {
-            if (empty($arr) || !is_array($arr)) { return false; }
+            if (empty($arr) || !is_array($arr)) {
+                return false;
+            }
 
             while (in_array($val, $arr)) {
                 unset($arr[array_search($val, $arr)]);
@@ -340,7 +381,7 @@ if (!class_exists("gdr2_Core")) {
          * @param array $skip elements to skip during unset
          * @return array upgraded array
          */
-        public static function upgrade_settings($old, $new, $skip = array("__core__", "__date__")) {
+        public static function upgrade_settings($old, $new, $skip = array('__core__', '__date__')) {
             foreach ($new as $key => $value) {
                 if (!isset($old[$key])) {
                     $old[$key] = $value;
@@ -373,7 +414,7 @@ if (!class_exists("gdr2_Core")) {
          * @param string $key_name key column name
          * @param string $value_name value column name
          */
-        public static function db_insert_meta($table, $id, $data, $id_name = "post_id", $key_name = "meta_key", $value_name = "meta_value") {
+        public static function db_insert_meta($table, $id, $data, $id_name = 'post_id', $key_name = 'meta_key', $value_name = "meta_value") {
             global $wpdb;
 
             foreach ($data as $key => $val) {
@@ -394,8 +435,11 @@ if (!class_exists("gdr2_Core")) {
          */
         public static function deactivate_plugin($plugin_name) {
             $current = get_option('active_plugins');
-            if(in_array($plugin_name, $current))
+
+            if(in_array($plugin_name, $current)) {
                 array_splice($current, array_search($plugin_name, $current), 1);
+            }
+
             update_option('active_plugins', $current);
         }
 
@@ -406,7 +450,7 @@ if (!class_exists("gdr2_Core")) {
          * @return array found users
          */
         public static function get_users_with_role($role) {
-            $wp_user_search = new WP_User_Search("", "", $role);
+            $wp_user_search = new WP_User_Search('', '', $role);
             return $wp_user_search->get_results();
         }
 
@@ -419,7 +463,10 @@ if (!class_exists("gdr2_Core")) {
         public static function get_current_category_id() {
             global $wp_query;
 
-            if (!$wp_query->is_category) return 0;
+            if (!$wp_query->is_category) {
+                return 0;
+            }
+
             $cat_obj = $wp_query->get_queried_object();
             return $cat_obj->term_id;
         }
@@ -432,9 +479,13 @@ if (!class_exists("gdr2_Core")) {
          * @return array subcatories
          */
         public static function get_subcategories_ids($cat, $hide_empty = true) {
-            $categories = get_categories(array("child_of" => $cat, "hide_empty" => $hide_empty));
+            $categories = get_categories(array('child_of' => $cat, 'hide_empty' => $hide_empty));
             $results = array();
-            foreach ($categories as $c) $results[] = $c->cat_ID;
+
+            foreach ($categories as $c) {
+                $results[] = $c->cat_ID;
+            }
+
             return $results;
         }
 
@@ -449,10 +500,16 @@ if (!class_exists("gdr2_Core")) {
             global $wpdb;
 
             $sql = "select distinct meta_key from ".$wpdb->postmeta;
-            if (!$hidden) $sql.= " where SUBSTR(meta_key, 1, 1) != '_'";
+            if (!$hidden) {
+                $sql.= " where SUBSTR(meta_key, 1, 1) != '_'";
+            }
+
             $elements = $wpdb->get_results($sql);
             $result = array();
-            foreach ($elements as $el) $result[] = $el->meta_key;
+            foreach ($elements as $el) {
+                $result[] = $el->meta_key;
+            }
+
             return $result;
         }
 
@@ -462,7 +519,7 @@ if (!class_exists("gdr2_Core")) {
          * @return bool
          */
         public static function php_in_safe_mode() {
-            return (@ini_get("safe_mode") == 'On' || @ini_get("safe_mode") === 1) ? TRUE : FALSE;
+            return (@ini_get('safe_mode') == 'On' || @ini_get('safe_mode') === 1) ? TRUE : FALSE;
         }
 
         /**
@@ -489,13 +546,19 @@ if (!class_exists("gdr2_Core")) {
          */
         public static function array_filter($input, $filter, $trim_filter = false) {
             $result = array();
+
             foreach ($input as $key => $value) {
                 if (substr($key, 0, strlen($filter)) == $filter) {
                     $new_key = $key;
-                    if ($trim_filter) $new_key = substr($key, strlen($filter));
+
+                    if ($trim_filter) {
+                        $new_key = substr($key, strlen($filter));
+                    }
+
                     $result[$new_key] = $value;
                 }
             }
+
             return $result;
         }
 
@@ -514,14 +577,14 @@ if (!class_exists("gdr2_Core")) {
         }
     }
 
-    add_action("init", "gdr2_load_translations");
+    add_action('init', 'gdr2_load_translations');
 
     function gdr2_load_translations() {
         $l = get_locale();
         if(!empty($l)) {
-            $moFile = dirname(__FILE__)."/languages/gdr2-".$l.".mo";
+            $moFile = dirname(__FILE__).'/languages/gdr2-'.$l.'.mo';
             if (@file_exists($moFile) && is_readable($moFile)) {
-                load_textdomain("gdr2", $moFile);
+                load_textdomain('gdr2', $moFile);
             }
         }
     }
@@ -544,8 +607,8 @@ if (!class_exists("gdr2_ObjectSort")) {
         }
 
         function array_compare($one, $two, $i = 0) {
-            $column = $this->properties[$i]["property"];
-            $order = $this->properties[$i]["order"];
+            $column = $this->properties[$i]['property'];
+            $order = $this->properties[$i]['order'];
 
             if ($one->$column == $two->$column) {
                 if ($i < count($this->properties) - 1) {
@@ -563,7 +626,7 @@ if (!class_exists("gdr2_ObjectSort")) {
     }
 }
 
-if (!class_exists("gdrClass")) {
+if (!class_exists('gdrClass')) {
     /**
      * Similar to stdClass but can take array as argument and fill object with property/value pairs.
      */
@@ -586,7 +649,7 @@ if (!class_exists("gdrClass")) {
     }
 }
 
-if (!class_exists("gdrBase")) {
+if (!class_exists('gdrBase')) {
     /**
      * Empty base class similar to stdClass with some extra functionalities.
      */
@@ -603,7 +666,7 @@ if (!class_exists("gdrBase")) {
     }
 }
 
-if (!class_exists("gdrMenuIcons")) {
+if (!class_exists('gdrMenuIcons')) {
     /**
      * Class to implement icons for the main menu. 
      */
@@ -655,12 +718,12 @@ if (!class_exists("gdrMenuIcons")) {
         public function get_css($name, $post_type) {
             $x = $this->get_location($name);
 
-            $css = "#menu-posts-".$post_type." .wp-menu-image {";
-            $css.= "background: url(".$this->url_types.") no-repeat scroll ";
-            $css.= $x."px -33px transparent !important; }".GDR2_EOL;
-            $css.= "#menu-posts-".$post_type.":hover .wp-menu-image {";
-            $css.= "background: url(".$this->url_types.") no-repeat scroll ";
-            $css.= $x."px -1px transparent !important; }".GDR2_EOL;
+            $css = '#menu-posts-'.$post_type.' .wp-menu-image {';
+            $css.= 'background: url('.$this->url_types.') no-repeat scroll ';
+            $css.= $x.'px -33px transparent !important; }'.GDR2_EOL;
+            $css.= '#menu-posts-'.$post_type.':hover .wp-menu-image {';
+            $css.= 'background: url('.$this->url_types.') no-repeat scroll ';
+            $css.= $x.'px -1px transparent !important; }'.GDR2_EOL;
 
             return $css;
         }
@@ -682,19 +745,25 @@ if (!class_exists("gdrMenuIcons")) {
     }
 }
 
-if (!function_exists("gdr2_include")) {
+if (!function_exists('gdr2_include')) {
     /**
      * Load gdr2 file specified by name
      *
      * @param string $name file name, no prefix and extension
+     * @param bool $plugin load from plugins sub-folder
+     * @param string $base_path base folder location
      */
-    function gdr2_include($name) {
-        require_once("gdr2.".$name.".php");
+    function gdr2_include($name, $plugin = false, $base_path = '') {
+        if ($plugin) {
+            require_once($base_path.'plugin/gdr2.'.$name.'.php');
+        } else {
+            require_once($base_path.'gdr2.'.$name.'.php');
+        }
     }
 }
 
-require_once("gdr2.fnc.php");
-require_once("gdr2.log.php");
-require_once("gdr2.cache.php");
+require_once('gdr2.fnc.php');
+require_once('gdr2.log.php');
+require_once('gdr2.cache.php');
 
 ?>

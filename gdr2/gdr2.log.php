@@ -2,13 +2,13 @@
 
 /*
 Name:    gdr2_Log
-Version: 2.5.6
+Version: 2.7.7.2
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
 
 == Copyright ==
-Copyright 2008 - 2011 Milan Petrovic (email: milan@gdragon.info)
+Copyright 2008 - 2012 Milan Petrovic (email: milan@gdragon.info)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -78,7 +78,6 @@ if (!class_exists('gdr2_Log')) {
         */
         public function slog($info, $mode = "a+") {
             if ($this->active) {
-                $info = $this->prepare_array($info);
                 $f = fopen($this->log_file, $mode);
                 fwrite ($f, "$info");
                 fwrite ($f, "\r\n");
