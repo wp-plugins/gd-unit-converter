@@ -1,5 +1,5 @@
 === GD Unit Converter ===
-Contributors: gdragon
+Contributors: GDragoN
 Donate link: http://www.dev4press.com/
 Version: 1.2
 Tags: dashboard, dashboard widget, dev4press, unit, units, converter, convert, unit converter, gdragon, currency
