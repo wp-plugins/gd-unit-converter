@@ -2,7 +2,7 @@
 
 /*
 Name:    gdr2_Fnc
-Version: 2.7.7.2
+Version: 2.7.9.6
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
@@ -94,6 +94,7 @@ if (!function_exists('get_authors')) {
         global $wpdb;
 
         $sql = sprintf("select distinct u.*, count(p.ID) as count from %s u inner join %s p on p.post_author = u.ID group by u.ID order by u.ID asc", $wpdb->users, $wpdb->posts);
+
         return $wpdb->get_results($sql);
     }
 }
@@ -119,15 +120,18 @@ if (!function_exists('is_msie_version')) {
      */
     function is_msie_version($version = 6, $exclusive = true) {
         $agent = $_SERVER['HTTP_USER_AGENT'];
+
         if (preg_match("/msie/i", $agent) && !preg_match("/opera/i", $agent)) {
             $val = explode(' ', stristr($agent, 'msie'));
             $v = intval(substr($val[1], 0, 1));
+
             if ($exclusive) {
                 return $v == $version;
             } else {
                 return $v <= $version;
             }
         }
+
         return false;
     }
 }
@@ -152,11 +156,14 @@ if (!function_exists('get_msie_version')) {
      */
     function get_msie_version() {
         $agent = $_SERVER['HTTP_USER_AGENT'];
+
         if (preg_match("/msie/i", $agent) && !preg_match("/opera/i", $agent)) {
             $val = explode(' ', stristr($agent, 'msie'));
             $v = intval(substr($val[1], 0, 1));
+
             return $v;
         }
+
         return 0;
     }
 }
@@ -196,10 +203,15 @@ if (!function_exists('prefill_attributes')) {
     function prefill_attributes($defaults, $attributes) {
         $attributes = (array)$attributes;
         $result = array();
+
         foreach($defaults as $name => $default) {
-            if (array_key_exists($name, $attributes)) $result[$name] = $attributes[$name];
-            else $result[$name] = $default;
+            if (array_key_exists($name, $attributes)) {
+                $result[$name] = $attributes[$name];
+            } else {
+                $result[$name] = $default;
+            }
         }
+
         return $result;
     }
 }
@@ -227,13 +239,20 @@ if (!function_exists('gdr2_split_textarea')) {
      */
     function gdr2_split_textarea($value, $empty_lines = false) {
         $elements = preg_split("/[\n\r]/", $value);
+
         if (!$empty_lines) {
             $results = array();
+
             foreach ($elements as $el) {
-                if (trim($el) != "") $results[] = $el;
+                if (trim($el) != "") {
+                    $results[] = $el;
+                }
             }
+
             return $results;
-        } else return $elements;
+        } else {
+            return $elements;
+        }
     }
 }
 
@@ -258,6 +277,7 @@ if (!function_exists('gdr2_wp_flush')) {
         if ($cache) {
             wp_cache_flush();
         }
+        
         if ($queries) {
             global $wpdb;
             if (is_array($wpdb->queries) && !empty($wpdb->queries)) {
@@ -281,8 +301,12 @@ if (!function_exists('gdr2_days_between')) {
         $year_start = date('Y', $start);
         $days_end = date('z', $end);
         $days_start = date('z', $start);
-        if ($year_end == $year_start) return $days_end - $days_start;
-        else return $days_end - $days_start + ($year_end - $year_start) * 365;
+
+        if ($year_end == $year_start) {
+            return $days_end - $days_start;
+        } else {
+            return $days_end - $days_start + ($year_end - $year_start) * 365;
+        }
     }
 }
 
@@ -296,6 +320,7 @@ if (!function_exists('gdr2_from_url_to_library')) {
     */
     function gdr2_from_url_to_library($url, $post_id = 0) {
         $downloaded = download_url($url);
+
         if (is_wp_error($downloaded)) {
             return $downloaded;
         }
@@ -312,6 +337,7 @@ if (!function_exists('gdr2_from_url_to_library')) {
             'post_title' => preg_replace('/\.[^.]+$/', '', basename($file_name)),
             'post_content' => '', 'post_status' => 'inherit');
         $attach_id = wp_insert_attachment($attachment, $upload_path, $post_id);
+
         if (!is_wp_error($attach_id)) {
             $attach_data = wp_generate_attachment_metadata($attach_id, $upload_path);
             wp_update_attachment_metadata($attach_id, $attach_data);
@@ -334,6 +360,7 @@ if (!function_exists('gdr2_post_featured_image_url')) {
 
         if ($post_thumbnail_id) {
             $image = wp_get_attachment_image_src($post_thumbnail_id, $size);
+
             if (is_array($image) && !empty($image)) {
                 return $image[0];
             }
@@ -365,32 +392,12 @@ if (!function_exists('gdr2_array_property_to_array')) {
      */
     function gdr2_array_property_to_array($arr, $property) {
         $ids = array();
-        foreach ($arr as $a) $ids[] = $a->$property;
+
+        foreach ($arr as $a) {
+            $ids[] = $a->$property;
+        }
+
         return $ids;
-    }
-}
-
-if (!function_exists('gdr2_readfile')) {
-    /**
-     * Read file in parts of 1MB, to be used for large files instead of readfile.
-     *
-     * @param string $file_path path to the file to read
-     * @param bool $return_size return tranfered size
-     */
-    function gdr2_readfile($file_path, $part_size = 2) {
-        $part_size = $part_size * 1024 * 1024;
-        $handle = fopen($file_path, 'rb');
-        if ($handle === false) {
-            return false;
-        }
-
-        @set_time_limit(0);
-        while (!feof($handle)) {
-            echo fread($handle, $part_size);
-            flush();
-        }
-
-        return fclose($handle);
     }
 }
 
@@ -426,6 +433,7 @@ if (!function_exists('gdr2_entity_decode')) {
     function gdr2_entity_decode($content, $quote_style = null, $charset = null) {
         if (null === $quote_style) $quote_style = ENT_QUOTES;
         if (null === $charset) $charset = GDR2_CHARSET;
+
         return html_entity_decode($content, $quote_style, $charset);
     }
 }
@@ -506,6 +514,7 @@ if (!function_exists('gdr2_clone_r')) {
             foreach ($value as $key => $val) {
                 $value[$key] = gdr2_clone_r($val);
             }
+
             return $value;
         } else if (is_object($value)) {
             return clone($value);
@@ -535,11 +544,15 @@ if (!function_exists('gdr2_strip_tags')) {
      * @return mixed striped value
      */
     function gdr2_strip_tags($value) {
-        if (is_object($value)) return $value;
+        if (is_object($value)) {
+            return $value;
+        }
+
         if (is_array($value)) {
             foreach ($value as $key => $val) {
                 $value[$key] = gdr2_strip_tags($val);
             }
+
             return $value;
         } else {
             return strip_tags($value);
@@ -584,11 +597,15 @@ if (!function_exists('gdr2_array_map')) {
      * @return mixed striped value
      */
     function gdr2_array_map($function, $value) {
-        if (is_object($value)) return $value;
+        if (is_object($value)) {
+            return $value;
+        }
+
         if (is_array($value)) {
             foreach ($value as $key => $val) {
                 $value[$key] = gdr2_array_map($function, $val);
             }
+
             return $value;
         } else {
             return call_user_func($function, $value);
@@ -626,15 +643,17 @@ if (!function_exists('gdr2_get_select_values')) {
      */
     function gdr2_get_select_values($name, $all = '(all)') {
         $items = (array)$_POST[$name];
+
         if (count($items) > 0 && $items[0] == $all) {
             unset($items[0]);
             $items = array_values($items);
         }
+
         return $items;
     }
 }
 
-if(!function_exists('gdr2_mime_content_type')) {
+if (!function_exists('gdr2_mime_content_type')) {
     /**
      * Detect mime type for a file.
      * Based on: http://www.php.net/manual/en/function.mime-content-type.php#87856
@@ -693,6 +712,7 @@ if(!function_exists('gdr2_mime_content_type')) {
             $finfo = finfo_open(FILEINFO_MIME);
             $mimetype = finfo_file($finfo, $filename);
             finfo_close($finfo);
+
             return $mimetype;
         } else {
             return 'application/octet-stream';
@@ -731,6 +751,34 @@ if (!function_exists('gdr2_sanitize_full')) {
     }
 }
 
+if (!function_exists('gdr2_sanitize_custom')) {
+    /**
+     * Sanitize string with full series of transformations and custom settings.
+     *
+     * @param string $name input string
+     * @param array $args settings
+     * @return string sanitized name
+     */
+    function gdr2_sanitize_custom($name, $args = array()) {
+        $defaults = array('strip_spaces' => false, 'replacement' => '-');
+        $args = wp_parse_args($args, $defaults);
+        extract($args);
+
+        $name = trim(strip_tags($name));
+        $name = strtolower($name);
+        $name = sanitize_user($name, true);
+        $name = str_replace(array("'", '"'), '', $name);
+
+        if ($strip_spaces) {
+            $name = str_replace(' ', '', $name);
+        }
+
+        $name = str_replace(array('.', '-', '_', ' '), $replacement, $name);
+
+        return $name;
+    }
+}
+
 if (!function_exists('gdr2_null')) {
     /**
      * Null function. Returns null. Does nothing.
@@ -739,6 +787,16 @@ if (!function_exists('gdr2_null')) {
      */
     function gdr2_null() {
         return null;
+    }
+}
+
+if (!function_exists('gdr2_unset')) {
+    function gdr2_unset($arr, $keys) {
+        foreach ($keys as $key) {
+            unset($arr[$key]);
+        }
+
+        return $arr;
     }
 }
 
@@ -778,6 +836,7 @@ if (!function_exists('gdr2_post_has_parent')) {
      */
     function gdr2_post_has_parent($post_id) {
         $post = get_post($post_id);
+
         if (is_null($post)) {
             return false;
         } else {
@@ -795,6 +854,7 @@ if (!function_exists('gdr2_get_post_parent')) {
      */
     function gdr2_get_post_parent($post_id) {
         $post = get_post($post_id);
+
         if (is_null($post)) {
             return 0;
         } else {
@@ -812,13 +872,21 @@ if (!function_exists('php_array_to_js_object')) {
      */
     function php_array_to_js_object($array){
         $obj = array();
+
         foreach ($array as $key => $value) {
             $el = $key.': ';
-            if (is_bool($value)) $el.= $value ? 'true' : 'false';
-            else if (!is_numeric($value)) $el.= "'".$value."'";
-            else $el.= $value;
+
+            if (is_bool($value)) {
+                $el.= $value ? 'true' : 'false';
+            } else if (!is_numeric($value)) {
+                $el.= "'".$value."'";
+            } else {
+                $el.= $value;
+            }
+
             $obj[] = $el;
         }
+
         return '{ '.join(', ', $obj).' }';
     }
 }
@@ -837,6 +905,7 @@ if (!function_exists('in_iarray')) {
                 return true;
             }
         }
+
         return false;
     }
 }
@@ -850,11 +919,13 @@ if (!function_exists('array_iunique')) {
      */
     function array_iunique($a){
         $n = array();
+
         foreach($a as $k => $v) {
             if (!in_iarray($v, $n)){
                 $n[$k] = $v;
             }
         }
+
         return $n;
     }
 }
@@ -902,6 +973,7 @@ if (!function_exists('gdr2_print_array_lines')) {
                     $array[$key] = gdr2_print_array_lines($item, $none);
                 }
             }
+
             return join("<br/>", $array).'<br/>';
         } else if (empty($array)) {
             return $none.'<br/>';
@@ -1188,6 +1260,7 @@ if (!function_exists('gdr2_is_current_user_role')) {
     /**
      * Checks to see if the currently logged user has a given role.
      *
+     * @param string $role name of the role
      * @return bool is user has a given role or not
      */
     function gdr2_is_current_user_role($role = 'administrator') {
@@ -1198,6 +1271,35 @@ if (!function_exists('gdr2_is_current_user_role')) {
         } else {
             return false;
         }
+    }
+}
+
+if (!function_exists('gdr2_is_current_user_roles')) {
+    /**
+     * Checks to see if the currently logged user has one of given roles.
+     *
+     * @param array $roles list of roles
+     * @return bool is user has any of given roles or not
+     */
+    function gdr2_is_current_user_roles($roles = array()) {
+        global $current_user;
+        $roles = (array)$roles;
+
+        if (is_array($current_user->roles) && !empty($roles)) {
+            $match = array_intersect($roles, $current_user->roles);
+            return !empty($match);
+        } else {
+            return false;
+        }
+    }
+}
+
+if (!function_exists('gdr2_switch_to_default_theme')) {
+    /**
+     * Switch from current theme to default theme.
+     */
+    function gdr2_switch_to_default_theme() {
+        switch_theme(WP_DEFAULT_THEME, WP_DEFAULT_THEME);
     }
 }
 

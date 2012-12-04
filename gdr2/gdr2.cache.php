@@ -2,7 +2,7 @@
 
 /*
 Name:    gdr2_Cache
-Version: 2.7.7.2
+Version: 2.7.9.6
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/

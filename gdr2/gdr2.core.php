@@ -2,7 +2,7 @@
 
 /*
 Name:    gdr2_Core
-Version: 2.7.7.2
+Version: 2.7.9.6
 Author:  Milan Petrovic
 Email:   milan@gdragon.info
 Website: http://www.dev4press.com/libs/gdr2/
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * Library version and build
  */
 if (!defined('GDR2_VERSION')) { 
-    define('GDR2_VERSION', '2.7.7.2');
+    define('GDR2_VERSION', '2.7.9.6');
     define('GDR2_BUILD', '922');
 }
 
