@@ -1,10 +1,10 @@
 === GD Unit Converter ===
 Contributors: GDragoN
 Donate link: http://www.dev4press.com/
-Version: 1.2.1
+Version: 2.0
 Tags: dashboard, dashboard widget, dev4press, unit, units, converter, convert, unit converter, gdragon, currency
-Requires at least: 3.0
-Tested up to: 3.5
+Requires at least: 3.2
+Tested up to: 3.9
 Stable tag: trunk
 
 Simple and easy unit conversion directly from the admin dashboard. Supports: currency, length, speed, weight, memory, temperature...
@@ -52,13 +52,20 @@ Plugin gets exchange rates from Google, and stores them for 24h for faster reuse
 Plugin supports all currencies Google supports. Right now that list has 93 currencies.
 
 == Screenshots ==
-1. Dashboard widget in WordPress 3.2
+1. Dashboard widget in WordPress 3.8.1
 
 == Upgrade Notice ==
-= 1.2.1 =
-Sound conversions. Volume conversions. Updated used parts of gdr2 library to 2.7.9.6.
+= 2.0 =
+Rewritten units core conversion. Improved styling of the dashboard widget. Total of 167 currency supported. Updated translation strings list. Requires WordPress 3.2 and newer.
 
 == Changelog ==
+= 2.0 =
+* Rewritten units core conversion
+* Improved styling of the dashboard widget
+* Total of 167 currency supported
+* Updated translation strings list
+* Requires WordPress 3.2 and newer
+
 = 1.2.1 =
 * Sound conversions
 * Volume conversions

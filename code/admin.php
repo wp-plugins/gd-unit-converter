@@ -9,7 +9,7 @@ class gdUnitConverter {
         $this->script = $_SERVER['PHP_SELF'];
         $this->script = end(explode('/', $this->script));
 
-        add_action('admin_init', array(&$this, 'admin_init'));
+        add_action('admin_enqueue_scripts', array(&$this, 'admin_enqueue'));
         add_action('wp_dashboard_setup', array(&$this, 'dashboard_setup'));
         add_action('wp_network_dashboard_setup', array(&$this, 'dashboard_setup'));
         add_action('wp_ajax_gduc_currency_convert', array(&$this, 'currency_convert'));
@@ -32,15 +32,17 @@ class gdUnitConverter {
         $to = $_POST['to'];
         $val = $_POST['val'];
 
-        $converted = gdr2_unit_convert('currency', $val, $from, $to);
+        $converted = gduc_unit_convert('currency', $val, $from, $to);
         if (is_null($converted)) {
             $converted = '0';
         }
+
         $res = array('result' => $converted);
+
         die(json_encode($res));
     }
 
-    public function admin_init() {
+    public function admin_enqueue() {
         if ($this->script == 'index.php') {
             $js_url = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? 'js/src/unit-converter.js' : 'js/unit-converter.js';
 

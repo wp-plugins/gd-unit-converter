@@ -1,14 +1,16 @@
-<div id="gd-unit-converter">
 <?php
     
-global $gdr2_units;
-$categories = $gdr2_units->get_units();
+global $gduc_units;
+
+$gduc_units->load_all_unit_types();
+$categories = $gduc_units->get_units();
 
 ?>
-    <script type="text/javascript">
-        gdUnitConv.tmp.data = <?php echo json_encode($gdr2_units->data); ?>;
-        gdUnitConv.tmp.nonce = '<?php echo wp_create_nonce("gd-unit-converter"); ?>';
-    </script>
+<script type="text/javascript">
+    gdUnitConv.tmp.data = <?php echo json_encode($gduc_units->data); ?>;
+    gdUnitConv.tmp.nonce = '<?php echo wp_create_nonce("gd-unit-converter"); ?>';
+</script>
+<div id="gd-unit-converter">
     <table cellpadding="0" cellspacing="0">
         <tr>
             <td>
@@ -18,13 +20,11 @@ $categories = $gdr2_units->get_units();
                     <?php } ?>
                 </select>
             </td>
+            <td style="width: 58px;">&nbsp;</td>
             <td>
                 <input id="gduc-value" type="text" value="1" />
             </td>
         </tr>
-    </table>
-
-    <table cellpadding="0" cellspacing="0" style="margin-bottom: 10px;margin-top: 10px;">
         <tr>
             <td>
                 <select id="gduc-from"></select>
@@ -41,5 +41,5 @@ $categories = $gdr2_units->get_units();
     <input id="gduc-result" type="text" value="1" readonly />
 </div>
 <div id="gd-unit-copyright">
-    Dev4Press &copy; 2008 - 2012 <a target="_blank" href="http://www.dev4press.com/">www.dev4press.com</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="http://www.dev4press.com/plugin/gd-unit-converter/">GD Unit Convertor</a>&nbsp;&nbsp;|&nbsp;&nbsp;version: <strong><?php echo GDUNITCONVERTER_VERSION; ?></strong>
+    Dev4Press &copy; 2008 - 2014 <a target="_blank" href="http://www.dev4press.com/">www.dev4press.com</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="http://www.dev4press.com/plugin/gd-unit-converter/">GD Unit Convertor</a>&nbsp;&nbsp;|&nbsp;&nbsp;version: <strong><?php echo GDUNITCONVERTER_VERSION; ?></strong>
 </div>
