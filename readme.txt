@@ -35,7 +35,6 @@ Supported categories and units in each category will be expanded with future plu
 
 = Important URL's =
 [Plugin Home](http://www.dev4press.com/plugins/gd-unit-converter/) |
-[Feedburner](http://feeds2.feedburner.com/dev4press) |
 [Twitter](http://twitter.com/milangd) |
 [Facebook Page](http://www.facebook.com/dev4press)
 
